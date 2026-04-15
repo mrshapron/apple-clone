@@ -479,11 +479,13 @@ export function Nav() {
       {/* Scrim overlay behind mega-menu */}
       <div style={{
         position: "fixed", inset: 0, zIndex: 999,
-        backgroundColor: "rgba(0,0,0,0.4)",
+        backgroundColor: "rgba(0,0,0,0.35)",
+        backdropFilter: activeMenu ? "blur(20px)" : "blur(0px)",
+        WebkitBackdropFilter: activeMenu ? "blur(20px)" : "blur(0px)",
         opacity: activeMenu ? 1 : 0,
         pointerEvents: activeMenu ? "auto" : "none",
-        transition: "opacity 0.35s ease",
-      }} onClick={() => setActiveMenu(null)} />
+        transition: "opacity 0.4s ease, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease",
+      } as any} onClick={() => setActiveMenu(null)} />
     </>
   );
 }
