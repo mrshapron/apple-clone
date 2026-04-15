@@ -324,44 +324,67 @@ const megaMenus: Record<string, MegaCol[]> = {
   ],
 };
 
-function MegaMenu({ label, visible }: { label: string; visible: boolean }) {
-  const cols = megaMenus[label];
-  if (!cols) return null;
+function MegaMenuContent({ cols, visible }: { cols: MegaCol[]; visible: boolean }) {
   return (
     <div style={{
-      position: "absolute", top: 44, left: 0, right: 0, zIndex: 999,
-      overflow: "hidden",
-      maxHeight: visible ? 500 : 0,
+      position: "absolute", top: 0, left: 0, right: 0,
       opacity: visible ? 1 : 0,
-      transition: "max-height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease",
+      transform: visible ? "none" : "translateY(-8px)",
+      transition: "opacity 0.3s ease, transform 0.3s ease",
       pointerEvents: visible ? "auto" : "none",
     }}>
+      <div style={{ maxWidth: 980, margin: "0 auto", padding: "36px 44px 40px", display: "flex", gap: 56 }}>
+        {cols.map((col) => (
+          <div key={col.title} style={{ flex: "1 1 0" }}>
+            <p style={{ fontSize: 12, color: "#86868b", fontWeight: 500, margin: "0 0 14px", letterSpacing: "0.04em" }}>{col.title}</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              {col.links.map((lnk) => (
+                <a key={lnk.label} href={`#${lnk.route}`} style={{
+                  color: WHITE_TEXT, fontSize: lnk.big ? 24 : 12, fontWeight: lnk.big ? 600 : 400,
+                  textDecoration: "none", padding: lnk.big ? "3px 0" : "4px 0",
+                  letterSpacing: lnk.big ? "-0.01em" : "0.01em",
+                  transition: "color 0.2s",
+                  display: "block",
+                }}
+                  onMouseEnter={e => e.currentTarget.style.color = BLUE}
+                  onMouseLeave={e => e.currentTarget.style.color = WHITE_TEXT}
+                >{lnk.label}</a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MegaMenuPanel({ activeMenu, onMouseEnter, onMouseLeave }: {
+  activeMenu: string | null; onMouseEnter: () => void; onMouseLeave: () => void;
+}) {
+  const isOpen = activeMenu !== null;
+  return (
+    <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={{
+        position: "absolute", top: 44, left: 0, right: 0, zIndex: 999,
+        overflow: "hidden",
+        maxHeight: isOpen ? 500 : 0,
+        transition: "max-height 0.45s cubic-bezier(0.4,0,0.2,1)",
+        pointerEvents: isOpen ? "auto" : "none",
+      }}
+    >
       <div style={{
-        backgroundColor: "rgba(29,29,31,0.98)", backdropFilter: "saturate(180%) blur(20px)",
+        backgroundColor: "rgba(29,29,31,0.98)",
+        backdropFilter: "saturate(180%) blur(20px)",
         WebkitBackdropFilter: "saturate(180%) blur(20px)",
         borderTop: "1px solid rgba(255,255,255,0.04)",
-      }}>
-        <div style={{ maxWidth: 980, margin: "0 auto", padding: "36px 44px 40px", display: "flex", gap: 56 }}>
-          {cols.map((col) => (
-            <div key={col.title} style={{ flex: "1 1 0" }}>
-              <p style={{ fontSize: 12, color: "#86868b", fontWeight: 500, margin: "0 0 14px", letterSpacing: "0.04em" }}>{col.title}</p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                {col.links.map((lnk) => (
-                  <a key={lnk.label} href={`#${lnk.route}`} style={{
-                    color: WHITE_TEXT, fontSize: lnk.big ? 24 : 12, fontWeight: lnk.big ? 600 : 400,
-                    textDecoration: "none", padding: lnk.big ? "3px 0" : "4px 0",
-                    letterSpacing: lnk.big ? "-0.01em" : "0.01em",
-                    transition: "color 0.2s",
-                    display: "block",
-                  }}
-                    onMouseEnter={e => e.currentTarget.style.color = BLUE}
-                    onMouseLeave={e => e.currentTarget.style.color = WHITE_TEXT}
-                  >{lnk.label}</a>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        position: "relative",
+        minHeight: 280,
+      } as any}>
+        {Object.entries(megaMenus).map(([key, cols]) => (
+          <MegaMenuContent key={key} cols={cols} visible={activeMenu === key} />
+        ))}
       </div>
     </div>
   );
@@ -457,12 +480,8 @@ export function Nav() {
           </div>
         </div>
 
-        {/* Mega-menus */}
-        {Object.keys(megaMenus).map(key => (
-          <div key={key} onMouseEnter={cancelClose} onMouseLeave={scheduleClose}>
-            <MegaMenu label={key} visible={activeMenu === key} />
-          </div>
-        ))}
+        {/* Mega-menu */}
+        <MegaMenuPanel activeMenu={activeMenu} onMouseEnter={cancelClose} onMouseLeave={scheduleClose} />
 
         {/* Mobile menu */}
         {menuOpen && (
