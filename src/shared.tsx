@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useInView, useCounter, useParallax, useGlow } from "./hooks";
 
 // ─── Constants ───────────────────────────────────────────────────────────
@@ -201,17 +201,197 @@ export function ColorPicker({ colors, selected, onSelect }: { colors: { name: st
   );
 }
 
+// ─── Mega-menu content per nav item ─────────────────────────────────────
+interface MegaCol { title: string; links: { label: string; route: string; big?: boolean }[] }
+const megaMenus: Record<string, MegaCol[]> = {
+  Store: [
+    { title: "Shop", links: [
+      { label: "Shop the Latest", route: "/store", big: true }, { label: "Mac", route: "/mac", big: true }, { label: "iPhone", route: "/iphone", big: true },
+      { label: "iPad", route: "/ipad", big: true }, { label: "Apple Watch", route: "/watch", big: true }, { label: "Accessories", route: "/accessories", big: true },
+    ]},
+    { title: "Quick Links", links: [
+      { label: "Find a Store", route: "/support" }, { label: "Order Status", route: "/store" }, { label: "Apple Trade In", route: "/store" },
+      { label: "Financing", route: "/store" }, { label: "Personal Setup", route: "/support" },
+    ]},
+    { title: "Shop Special Stores", links: [
+      { label: "Education", route: "/store" }, { label: "Business", route: "/store" }, { label: "Government", route: "/store" },
+      { label: "Certified Refurbished", route: "/store" }, { label: "Gift Cards", route: "/store" },
+    ]},
+  ],
+  Mac: [
+    { title: "Explore Mac", links: [
+      { label: "Explore All Mac", route: "/mac", big: true }, { label: "MacBook Air", route: "/mac", big: true }, { label: "MacBook Pro", route: "/mac", big: true },
+      { label: "iMac", route: "/mac", big: true }, { label: "Mac mini", route: "/mac", big: true }, { label: "Mac Studio", route: "/mac", big: true },
+      { label: "Mac Pro", route: "/mac", big: true }, { label: "Compare", route: "/mac" },
+    ]},
+    { title: "Shop Mac", links: [
+      { label: "Shop Mac", route: "/mac" }, { label: "Mac Accessories", route: "/accessories" }, { label: "Apple Trade In", route: "/store" },
+      { label: "Financing", route: "/store" }, { label: "Personal Setup", route: "/support" },
+    ]},
+    { title: "More from Mac", links: [
+      { label: "Mac Support", route: "/support" }, { label: "AppleCare+", route: "/support" }, { label: "macOS Sequoia", route: "/mac" },
+      { label: "Apple Intelligence", route: "/mac" }, { label: "Apps by Apple", route: "/entertainment" }, { label: "Continuity", route: "/mac" },
+      { label: "iCloud+", route: "/entertainment" }, { label: "Education", route: "/store" },
+    ]},
+  ],
+  iPad: [
+    { title: "Explore iPad", links: [
+      { label: "Explore All iPad", route: "/ipad", big: true }, { label: "iPad Pro", route: "/ipad", big: true }, { label: "iPad Air", route: "/ipad", big: true },
+      { label: "iPad", route: "/ipad", big: true }, { label: "iPad mini", route: "/ipad", big: true },
+      { label: "Apple Pencil", route: "/ipad", big: true }, { label: "Keyboards", route: "/ipad", big: true }, { label: "Compare", route: "/ipad" },
+    ]},
+    { title: "Shop iPad", links: [
+      { label: "Shop iPad", route: "/ipad" }, { label: "iPad Accessories", route: "/accessories" }, { label: "Apple Trade In", route: "/store" },
+      { label: "Financing", route: "/store" }, { label: "Personal Setup", route: "/support" },
+    ]},
+    { title: "More from iPad", links: [
+      { label: "iPad Support", route: "/support" }, { label: "AppleCare+", route: "/support" }, { label: "iPadOS 26", route: "/ipad" },
+      { label: "Apple Intelligence", route: "/ipad" }, { label: "Apps by Apple", route: "/entertainment" },
+      { label: "Apple Creator Studio", route: "/ipad" }, { label: "iCloud+", route: "/entertainment" }, { label: "Education", route: "/store" },
+    ]},
+  ],
+  iPhone: [
+    { title: "Explore iPhone", links: [
+      { label: "Explore All iPhone", route: "/iphone", big: true }, { label: "iPhone 17 Pro", route: "/iphone", big: true }, { label: "iPhone Air", route: "/iphone", big: true },
+      { label: "iPhone 17", route: "/iphone", big: true }, { label: "iPhone 17e", route: "/iphone", big: true }, { label: "Compare", route: "/iphone" },
+    ]},
+    { title: "Shop iPhone", links: [
+      { label: "Shop iPhone", route: "/buy-iphone" }, { label: "iPhone Accessories", route: "/accessories" }, { label: "Apple Trade In", route: "/store" },
+      { label: "Carrier Deals", route: "/buy-iphone" }, { label: "Financing", route: "/store" },
+    ]},
+    { title: "More from iPhone", links: [
+      { label: "iPhone Support", route: "/support" }, { label: "AppleCare+", route: "/support" }, { label: "iOS 26", route: "/iphone" },
+      { label: "Apple Intelligence", route: "/iphone" }, { label: "Apps by Apple", route: "/entertainment" },
+      { label: "iCloud+", route: "/entertainment" }, { label: "Education", route: "/store" },
+    ]},
+  ],
+  Watch: [
+    { title: "Explore Watch", links: [
+      { label: "Explore All Watch", route: "/watch", big: true }, { label: "Apple Watch Ultra 2", route: "/watch", big: true },
+      { label: "Apple Watch Series 10", route: "/watch", big: true }, { label: "Apple Watch SE", route: "/watch", big: true },
+      { label: "Apple Watch Nike", route: "/watch", big: true }, { label: "Compare", route: "/watch" },
+    ]},
+    { title: "Shop Watch", links: [
+      { label: "Shop Watch", route: "/watch" }, { label: "Watch Bands", route: "/accessories" }, { label: "Watch Accessories", route: "/accessories" },
+      { label: "Apple Trade In", route: "/store" }, { label: "Financing", route: "/store" },
+    ]},
+    { title: "More from Watch", links: [
+      { label: "Watch Support", route: "/support" }, { label: "AppleCare+", route: "/support" }, { label: "watchOS 12", route: "/watch" },
+      { label: "Apple Fitness+", route: "/entertainment" }, { label: "Health", route: "/watch" },
+    ]},
+  ],
+  AirPods: [
+    { title: "Explore AirPods", links: [
+      { label: "Explore All AirPods", route: "/airpods", big: true }, { label: "AirPods Pro 2", route: "/airpods", big: true },
+      { label: "AirPods 4", route: "/airpods", big: true }, { label: "AirPods Max", route: "/airpods", big: true }, { label: "Compare", route: "/airpods" },
+    ]},
+    { title: "Shop AirPods", links: [
+      { label: "Shop AirPods", route: "/airpods" }, { label: "AirPods Accessories", route: "/accessories" },
+    ]},
+    { title: "More from AirPods", links: [
+      { label: "AirPods Support", route: "/support" }, { label: "AppleCare+", route: "/support" },
+      { label: "Hearing Health", route: "/airpods" }, { label: "Apple Music", route: "/entertainment" },
+    ]},
+  ],
+  Entertainment: [
+    { title: "Explore Entertainment", links: [
+      { label: "Explore Entertainment", route: "/entertainment", big: true }, { label: "Apple One", route: "/entertainment", big: true },
+      { label: "Apple TV+", route: "/entertainment", big: true }, { label: "Apple Music", route: "/entertainment", big: true },
+      { label: "Apple Arcade", route: "/entertainment", big: true }, { label: "Apple Fitness+", route: "/entertainment", big: true },
+    ]},
+    { title: "More Services", links: [
+      { label: "Apple News+", route: "/entertainment" }, { label: "Apple Podcasts", route: "/entertainment" },
+      { label: "Apple Books", route: "/entertainment" }, { label: "App Store", route: "/entertainment" },
+    ]},
+    { title: "Support", links: [
+      { label: "Apple TV+ Support", route: "/support" }, { label: "Apple Music Support", route: "/support" },
+    ]},
+  ],
+  Support: [
+    { title: "Explore Support", links: [
+      { label: "iPhone", route: "/support", big: true }, { label: "Mac", route: "/support", big: true }, { label: "iPad", route: "/support", big: true },
+      { label: "Watch", route: "/support", big: true }, { label: "AirPods", route: "/support", big: true }, { label: "Music", route: "/support", big: true },
+      { label: "TV", route: "/support", big: true },
+    ]},
+    { title: "Get Help", links: [
+      { label: "Community", route: "/support" }, { label: "Check Coverage", route: "/support" }, { label: "Repair", route: "/support" },
+      { label: "Contact Us", route: "/support" },
+    ]},
+    { title: "Helpful Topics", links: [
+      { label: "Get AppleCare+", route: "/support" }, { label: "Apple Account & Password", route: "/support" },
+      { label: "Billing & Subscriptions", route: "/support" }, { label: "Accessibility", route: "/support" },
+    ]},
+  ],
+};
+
+function MegaMenu({ label, visible }: { label: string; visible: boolean }) {
+  const cols = megaMenus[label];
+  if (!cols) return null;
+  return (
+    <div style={{
+      position: "absolute", top: 44, left: 0, right: 0, zIndex: 999,
+      overflow: "hidden",
+      maxHeight: visible ? 500 : 0,
+      opacity: visible ? 1 : 0,
+      transition: "max-height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease",
+      pointerEvents: visible ? "auto" : "none",
+    }}>
+      <div style={{
+        backgroundColor: "rgba(29,29,31,0.98)", backdropFilter: "saturate(180%) blur(20px)",
+        WebkitBackdropFilter: "saturate(180%) blur(20px)",
+        borderTop: "1px solid rgba(255,255,255,0.04)",
+      }}>
+        <div style={{ maxWidth: 980, margin: "0 auto", padding: "36px 44px 40px", display: "flex", gap: 56 }}>
+          {cols.map((col) => (
+            <div key={col.title} style={{ flex: "1 1 0" }}>
+              <p style={{ fontSize: 12, color: "#86868b", fontWeight: 500, margin: "0 0 14px", letterSpacing: "0.04em" }}>{col.title}</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                {col.links.map((lnk) => (
+                  <a key={lnk.label} href={`#${lnk.route}`} style={{
+                    color: WHITE_TEXT, fontSize: lnk.big ? 24 : 12, fontWeight: lnk.big ? 600 : 400,
+                    textDecoration: "none", padding: lnk.big ? "3px 0" : "4px 0",
+                    letterSpacing: lnk.big ? "-0.01em" : "0.01em",
+                    transition: "color 0.2s",
+                    display: "block",
+                  }}
+                    onMouseEnter={e => e.currentTarget.style.color = BLUE}
+                    onMouseLeave={e => e.currentTarget.style.color = WHITE_TEXT}
+                  >{lnk.label}</a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Navigation Bar ──────────────────────────────────────────────────────
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openMenu = (label: string) => {
+    if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; }
+    setActiveMenu(label);
+  };
+  const scheduleClose = () => {
+    closeTimer.current = setTimeout(() => setActiveMenu(null), 200);
+  };
+  const cancelClose = () => {
+    if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; }
+  };
+
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", h, { passive: true });
     return () => window.removeEventListener("scroll", h);
   }, []);
   useEffect(() => {
-    const h = () => setMenuOpen(false);
+    const h = () => { setMenuOpen(false); setActiveMenu(null); };
     window.addEventListener("hashchange", h);
     return () => window.removeEventListener("hashchange", h);
   }, []);
@@ -222,53 +402,89 @@ export function Nav() {
     ["Entertainment", "/entertainment"], ["Accessories", "/accessories"], ["Support", "/support"],
   ];
 
+  const menuKeys: Record<string, string> = {
+    "Store": "Store", "Mac": "Mac", "iPad": "iPad", "iPhone": "iPhone",
+    "Watch": "Watch", "AirPods": "AirPods", "Entertainment": "Entertainment", "Support": "Support",
+  };
+
   return (
-    <nav style={{
-      position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, height: 44,
-      backgroundColor: scrolled ? "rgba(29,29,31,0.72)" : "rgba(29,29,31,0.92)",
-      backdropFilter: "saturate(180%) blur(20px)", WebkitBackdropFilter: "saturate(180%) blur(20px)",
-      transition: "background-color 0.4s",
-    }}>
-      <div style={{ maxWidth: 1024, margin: "0 auto", height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 22px" }}>
-        <a href="#/" style={{ color: WHITE_TEXT, textDecoration: "none", display: "flex", alignItems: "center", transition: "opacity 0.3s" }}
-          onMouseEnter={e => e.currentTarget.style.opacity = "0.7"} onMouseLeave={e => e.currentTarget.style.opacity = "1"}>
-          <svg width="17" height="20" viewBox="0 0 17 20" fill="currentColor">
-            <path d="M12.84 0c.07.63-.19 1.26-.53 1.72-.36.46-.95.82-1.52.77-.08-.6.22-1.23.55-1.62.37-.42.99-.73 1.5-.87zm.38 2.65c-.84-.05-1.56.48-1.96.48-.41 0-1.04-.46-1.71-.45-.88.01-1.69.51-2.14 1.3-.92 1.58-.24 3.92.65 5.21.44.63.96 1.34 1.64 1.32.66-.03.91-.43 1.71-.43.8 0 1.02.43 1.72.41.71-.01 1.16-.64 1.59-1.28.5-.73.71-1.44.72-1.48-.02-.01-1.38-.53-1.39-2.11-.01-1.32 1.08-1.95 1.13-1.98-.62-.91-1.58-1.01-1.92-1.03z"/>
-          </svg>
-        </a>
-        <div style={{ display: "flex", gap: 24, alignItems: "center" }} className="nav-links-desktop">
-          {links.map(([label, path]) => (
-            <a key={label} href={`#${path}`} style={{ color: WHITE_TEXT, fontSize: 12, textDecoration: "none", opacity: 0.8, transition: "opacity 0.3s", letterSpacing: "0.008em" }}
-              onMouseEnter={e => e.currentTarget.style.opacity = "1"} onMouseLeave={e => e.currentTarget.style.opacity = "0.8"}
-            >{label}</a>
-          ))}
-        </div>
-        <div style={{ display: "flex", gap: 18, alignItems: "center" }}>
-          <a href="#/support" style={{ color: WHITE_TEXT, opacity: 0.8, transition: "opacity 0.3s" }}
-            onMouseEnter={e => e.currentTarget.style.opacity = "1"} onMouseLeave={e => e.currentTarget.style.opacity = "0.8"}>
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="6" cy="6" r="5.2"/><line x1="10" y1="10" x2="14" y2="14"/></svg>
-          </a>
-          <a href="#/store" style={{ color: WHITE_TEXT, opacity: 0.8, transition: "opacity 0.3s" }}
-            onMouseEnter={e => e.currentTarget.style.opacity = "1"} onMouseLeave={e => e.currentTarget.style.opacity = "0.8"}>
-            <svg width="14" height="17" viewBox="0 0 14 17" fill="none" stroke="currentColor" strokeWidth="1.3"><path d="M1 4.5h12v11H1z"/><path d="M4.5 4.5V3a2.5 2.5 0 015 0v1.5"/></svg>
-          </a>
-          <button onClick={() => setMenuOpen(!menuOpen)} className="nav-hamburger" style={{ background: "none", border: "none", color: WHITE_TEXT, cursor: "pointer", display: "none", padding: 0 }}>
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
-              {menuOpen ? <path d="M3.5 3.5l11 11M14.5 3.5l-11 11" stroke="currentColor" strokeWidth="1.5" fill="none"/> : <><rect y="3" width="18" height="1.2" rx="0.6"/><rect y="8.5" width="18" height="1.2" rx="0.6"/><rect y="14" width="18" height="1.2" rx="0.6"/></>}
+    <>
+      <nav style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, height: 44,
+        backgroundColor: activeMenu ? "rgba(29,29,31,0.98)" : (scrolled ? "rgba(29,29,31,0.72)" : "rgba(29,29,31,0.92)"),
+        backdropFilter: "saturate(180%) blur(20px)", WebkitBackdropFilter: "saturate(180%) blur(20px)",
+        transition: "background-color 0.3s",
+      }}
+        onMouseLeave={scheduleClose}
+      >
+        <div style={{ maxWidth: 1024, margin: "0 auto", height: 44, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 22px" }}>
+          <a href="#/" style={{ color: WHITE_TEXT, textDecoration: "none", display: "flex", alignItems: "center", transition: "opacity 0.3s" }}
+            onMouseEnter={() => { scheduleClose(); }} onMouseLeave={() => {}}
+          >
+            <svg width="17" height="20" viewBox="0 0 17 20" fill="currentColor">
+              <path d="M12.84 0c.07.63-.19 1.26-.53 1.72-.36.46-.95.82-1.52.77-.08-.6.22-1.23.55-1.62.37-.42.99-.73 1.5-.87zm.38 2.65c-.84-.05-1.56.48-1.96.48-.41 0-1.04-.46-1.71-.45-.88.01-1.69.51-2.14 1.3-.92 1.58-.24 3.92.65 5.21.44.63.96 1.34 1.64 1.32.66-.03.91-.43 1.71-.43.8 0 1.02.43 1.72.41.71-.01 1.16-.64 1.59-1.28.5-.73.71-1.44.72-1.48-.02-.01-1.38-.53-1.39-2.11-.01-1.32 1.08-1.95 1.13-1.98-.62-.91-1.58-1.01-1.92-1.03z"/>
             </svg>
-          </button>
+          </a>
+          <div style={{ display: "flex", gap: 24, alignItems: "center" }} className="nav-links-desktop">
+            {links.map(([label, path]) => {
+              const key = menuKeys[label];
+              return (
+                <a key={label} href={`#${path}`}
+                  onMouseEnter={() => key ? openMenu(key) : scheduleClose()}
+                  style={{
+                    color: WHITE_TEXT, fontSize: 12, textDecoration: "none",
+                    opacity: activeMenu === key ? 1 : 0.8,
+                    transition: "opacity 0.3s", letterSpacing: "0.008em",
+                  }}
+                >{label}</a>
+              );
+            })}
+          </div>
+          <div style={{ display: "flex", gap: 18, alignItems: "center" }}>
+            <a href="#/support" onMouseEnter={scheduleClose} style={{ color: WHITE_TEXT, opacity: 0.8, transition: "opacity 0.3s" }}
+              onMouseOver={e => e.currentTarget.style.opacity = "1"} onMouseOut={e => e.currentTarget.style.opacity = "0.8"}>
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="6" cy="6" r="5.2"/><line x1="10" y1="10" x2="14" y2="14"/></svg>
+            </a>
+            <a href="#/store" onMouseEnter={scheduleClose} style={{ color: WHITE_TEXT, opacity: 0.8, transition: "opacity 0.3s" }}
+              onMouseOver={e => e.currentTarget.style.opacity = "1"} onMouseOut={e => e.currentTarget.style.opacity = "0.8"}>
+              <svg width="14" height="17" viewBox="0 0 14 17" fill="none" stroke="currentColor" strokeWidth="1.3"><path d="M1 4.5h12v11H1z"/><path d="M4.5 4.5V3a2.5 2.5 0 015 0v1.5"/></svg>
+            </a>
+            <button onClick={() => setMenuOpen(!menuOpen)} className="nav-hamburger" style={{ background: "none", border: "none", color: WHITE_TEXT, cursor: "pointer", display: "none", padding: 0 }}>
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+                {menuOpen ? <path d="M3.5 3.5l11 11M14.5 3.5l-11 11" stroke="currentColor" strokeWidth="1.5" fill="none"/> : <><rect y="3" width="18" height="1.2" rx="0.6"/><rect y="8.5" width="18" height="1.2" rx="0.6"/><rect y="14" width="18" height="1.2" rx="0.6"/></>}
+              </svg>
+            </button>
+          </div>
         </div>
-      </div>
-      {menuOpen && (
-        <div style={{ backgroundColor: "rgba(29,29,31,0.98)", padding: "8px 22px 20px", animation: "slideDown 0.3s ease-out" }} className="nav-mobile-menu">
-          {links.map(([label, path]) => (
-            <a key={label} href={`#${path}`} style={{ display: "block", color: WHITE_TEXT, fontSize: 16, textDecoration: "none", padding: "12px 0", borderBottom: "1px solid rgba(255,255,255,0.06)", transition: "opacity 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.opacity = "0.6"} onMouseLeave={e => e.currentTarget.style.opacity = "1"}
-            >{label}</a>
-          ))}
-        </div>
-      )}
-    </nav>
+
+        {/* Mega-menus */}
+        {Object.keys(megaMenus).map(key => (
+          <div key={key} onMouseEnter={cancelClose} onMouseLeave={scheduleClose}>
+            <MegaMenu label={key} visible={activeMenu === key} />
+          </div>
+        ))}
+
+        {/* Mobile menu */}
+        {menuOpen && (
+          <div style={{ backgroundColor: "rgba(29,29,31,0.98)", padding: "8px 22px 20px", animation: "slideDown 0.3s ease-out" }} className="nav-mobile-menu">
+            {links.map(([label, path]) => (
+              <a key={label} href={`#${path}`} style={{ display: "block", color: WHITE_TEXT, fontSize: 16, textDecoration: "none", padding: "12px 0", borderBottom: "1px solid rgba(255,255,255,0.06)", transition: "opacity 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.opacity = "0.6"} onMouseLeave={e => e.currentTarget.style.opacity = "1"}
+              >{label}</a>
+            ))}
+          </div>
+        )}
+      </nav>
+
+      {/* Scrim overlay behind mega-menu */}
+      <div style={{
+        position: "fixed", inset: 0, zIndex: 999,
+        backgroundColor: "rgba(0,0,0,0.4)",
+        opacity: activeMenu ? 1 : 0,
+        pointerEvents: activeMenu ? "auto" : "none",
+        transition: "opacity 0.35s ease",
+      }} onClick={() => setActiveMenu(null)} />
+    </>
   );
 }
 
