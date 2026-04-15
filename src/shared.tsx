@@ -333,7 +333,7 @@ function MegaMenuContent({ cols, visible }: { cols: MegaCol[]; visible: boolean 
       transition: "opacity 0.3s ease, transform 0.3s ease",
       pointerEvents: visible ? "auto" : "none",
     }}>
-      <div style={{ maxWidth: 980, margin: "0 auto", padding: "36px 44px 40px", display: "flex", gap: 56 }}>
+      <div style={{ maxWidth: 980, margin: "0 auto", padding: "40px 44px 54px", display: "flex", gap: 56 }}>
         {cols.map((col) => (
           <div key={col.title} style={{ flex: "1 1 0" }}>
             <p style={{ fontSize: 12, color: "#86868b", fontWeight: 500, margin: "0 0 14px", letterSpacing: "0.04em" }}>{col.title}</p>
@@ -380,7 +380,7 @@ function MegaMenuPanel({ activeMenu, onMouseEnter, onMouseLeave }: {
         WebkitBackdropFilter: "saturate(180%) blur(20px)",
         borderTop: "1px solid rgba(255,255,255,0.04)",
         position: "relative",
-        minHeight: 280,
+        minHeight: 300,
       } as any}>
         {Object.entries(megaMenus).map(([key, cols]) => (
           <MegaMenuContent key={key} cols={cols} visible={activeMenu === key} />
