@@ -369,7 +369,7 @@ function MegaMenuPanel({ activeMenu, onMouseEnter, onMouseLeave }: {
       style={{
         position: "absolute", top: 44, left: 0, right: 0, zIndex: 999,
         overflow: "hidden",
-        maxHeight: isOpen ? 500 : 0,
+        maxHeight: isOpen ? 600 : 0,
         transition: "max-height 0.45s cubic-bezier(0.4,0,0.2,1)",
         pointerEvents: isOpen ? "auto" : "none",
       }}
@@ -380,7 +380,7 @@ function MegaMenuPanel({ activeMenu, onMouseEnter, onMouseLeave }: {
         WebkitBackdropFilter: "saturate(180%) blur(20px)",
         borderTop: "1px solid rgba(255,255,255,0.04)",
         position: "relative",
-        minHeight: 300,
+        minHeight: 360,
       } as any}>
         {Object.entries(megaMenus).map(([key, cols]) => (
           <MegaMenuContent key={key} cols={cols} visible={activeMenu === key} />
