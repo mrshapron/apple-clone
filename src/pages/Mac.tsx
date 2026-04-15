@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FadeIn, ScaleIn, Parallax, GlowCard, PageHero, FeatureTile, SpecRow, FONT, DARK, WHITE_TEXT, BLUE, LIGHT_BG, CTALinks, ColorPicker } from "../shared";
 import { MacBookSVG } from "../devices";
 import { useTilt } from "../hooks";
-import { StarField, CinematicText, MagneticButton, Marquee, ProductConfigurator, ComparisonSlider, ComparisonTable, BuyForm } from "../advanced";
+import { StarField, CinematicText, MagneticButton, Marquee, ProductConfigurator, ComparisonSlider, ComparisonTable, BuyForm, scrollToBuyForm } from "../advanced";
 
 const models = [
   { name: 'MacBook Air 13"', chip: "M4", price: "From $1,099", desc: "Strikingly thin and fast so every day flies by.", colors: [{ name: "Midnight", hex: "#1d1d3b" }, { name: "Starlight", hex: "#f0e6d3" }, { name: "Space Gray", hex: "#7d7e80" }, { name: "Silver", hex: "#e3e4e5" }] },
@@ -38,7 +38,7 @@ function MacModelCard({ model, index }: { model: typeof models[0]; index: number
         <p style={{ fontSize: 14, color: DARK, fontWeight: 500, margin: 0 }}>{model.price}</p>
         <div style={{ display: "flex", gap: 16, marginTop: 2 }}>
           <a href="#/mac" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
-          <a href="#/mac" style={{ display: "inline-flex", alignItems: "center", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
+          <a href="#/mac" onClick={(e) => { e.preventDefault(); scrollToBuyForm(); }} style={{ display: "inline-flex", alignItems: "center", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none", cursor: "pointer" }}>Buy</a>
         </div>
       </div>
     </FadeIn>
@@ -48,7 +48,7 @@ function MacModelCard({ model, index }: { model: typeof models[0]; index: number
 export default function Mac() {
   return (
     <div style={{ backgroundColor: LIGHT_BG }}>
-      <PageHero title="Mac" subtitle="If you can dream it, Mac can do it." cta={<CTALinks learnMore="/mac" buy="/store" />}
+      <PageHero title="Mac" subtitle="If you can dream it, Mac can do it." cta={<CTALinks learnMore="/mac" buy="/mac" buyScrollsToForm />}
         gradient="linear-gradient(180deg, #0a0a14, #1a1a2e 40%, #0f3460 70%, #0a0a14)"
       >
         <div style={{ position: "relative" }}>

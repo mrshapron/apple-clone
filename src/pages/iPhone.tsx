@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FadeIn, ScaleIn, Parallax, GlowCard, PageHero, FeatureTile, SpecRow, FONT, DARK, WHITE_TEXT, BLUE, LIGHT_BG, CTALinks, ColorPicker } from "../shared";
 import { IPhoneSVG } from "../devices";
 import { useTilt } from "../hooks";
-import { StarField, GradientMesh, CinematicText, MagneticButton, ProductConfigurator, Marquee, ComparisonSlider, ComparisonTable, BuyForm } from "../advanced";
+import { StarField, GradientMesh, CinematicText, MagneticButton, ProductConfigurator, Marquee, ComparisonSlider, ComparisonTable, BuyForm, scrollToBuyForm } from "../advanced";
 
 const iphones = [
   { name: "iPhone 17 Pro", price: "From $1,099", desc: "Innovative design for ultimate performance and battery life.", sizes: '6.9" or 6.3"', colors: [{ name: "Natural Titanium", hex: "#a8a5a0" }, { name: "Desert Titanium", hex: "#c4a77d" }, { name: "White Titanium", hex: "#e8e6e1" }, { name: "Black Titanium", hex: "#3b3b3d" }] },
@@ -39,7 +39,7 @@ function IPhoneCard({ phone, index }: { phone: typeof iphones[0]; index: number 
         <p style={{ fontSize: 13, color: DARK, fontWeight: 500, margin: 0 }}>{phone.price}</p>
         <div style={{ display: "flex", gap: 14, marginTop: 2 }}>
           <a href="#/iphone" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
-          <a href="#/buy-iphone" style={{ display: "inline-flex", alignItems: "center", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
+          <a href="#/buy-iphone" onClick={(e) => { e.preventDefault(); scrollToBuyForm(); }} style={{ display: "inline-flex", alignItems: "center", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none", cursor: "pointer" }}>Buy</a>
         </div>
       </div>
     </FadeIn>
@@ -49,7 +49,7 @@ function IPhoneCard({ phone, index }: { phone: typeof iphones[0]; index: number 
 export default function IPhone() {
   return (
     <div style={{ backgroundColor: LIGHT_BG }}>
-      <PageHero title="iPhone 17 Pro" subtitle="The ultimate iPhone." cta={<CTALinks learnMore="/iphone" buy="/buy-iphone" />}
+      <PageHero title="iPhone 17 Pro" subtitle="The ultimate iPhone." cta={<CTALinks learnMore="/iphone" buy="/iphone" buyScrollsToForm />}
         gradient="linear-gradient(180deg, #0a0a18 0%, #0f3460 30%, #533483 60%, #1a1a3e 85%, #0a0a18 100%)" height="clamp(380px,55vw,620px)"
       >
         <div style={{ position: "relative" }}>

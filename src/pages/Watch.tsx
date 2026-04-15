@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FadeIn, ScaleIn, Parallax, PageHero, FeatureTile, SpecRow, FONT, DARK, WHITE_TEXT, BLUE, LIGHT_BG, CTALinks, ColorPicker } from "../shared";
 import { WatchSVG } from "../devices";
 import { useTilt } from "../hooks";
-import { CinematicText, MagneticButton, Marquee, ComparisonTable, BuyForm } from "../advanced";
+import { CinematicText, MagneticButton, Marquee, ComparisonTable, BuyForm, scrollToBuyForm } from "../advanced";
 
 const watches = [
   { name: "Apple Watch Ultra 2", price: "From $799", desc: "The most rugged and capable Apple Watch.", colors: [{ name: "Natural Titanium", hex: "#a8a5a0" }, { name: "Black Titanium", hex: "#2c2c2e" }] },
@@ -30,7 +30,7 @@ function WatchCard({ watch, index }: { watch: typeof watches[0]; index: number }
         <p style={{ fontSize: 13, color: DARK, fontWeight: 500, margin: 0 }}>{watch.price}</p>
         <div style={{ display: "flex", gap: 14, marginTop: 2 }}>
           <a href="#/watch" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
-          <a href="#/watch" style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
+          <a href="#/watch" onClick={(e) => { e.preventDefault(); scrollToBuyForm(); }} style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none", cursor: "pointer" }}>Buy</a>
         </div>
       </div>
     </FadeIn>
@@ -40,7 +40,7 @@ function WatchCard({ watch, index }: { watch: typeof watches[0]; index: number }
 export default function Watch() {
   return (
     <div style={{ backgroundColor: LIGHT_BG }}>
-      <PageHero title="Apple Watch" subtitle="The ultimate device for a healthy life." cta={<CTALinks learnMore="/watch" buy="/store" />}
+      <PageHero title="Apple Watch" subtitle="The ultimate device for a healthy life." cta={<CTALinks learnMore="/watch" buy="/watch" buyScrollsToForm />}
         gradient="linear-gradient(180deg, #0a0a14, #1a1a2e 40%, #0a0a18 70%, #0a0a14)"
       >
         <div style={{ position: "relative" }}>

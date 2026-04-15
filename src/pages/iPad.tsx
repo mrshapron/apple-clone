@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FadeIn, ScaleIn, Parallax, PageHero, FeatureTile, SpecRow, FONT, DARK, WHITE_TEXT, BLUE, LIGHT_BG, CTALinks, ColorPicker } from "../shared";
 import { IPadSVG } from "../devices";
 import { useTilt } from "../hooks";
-import { CinematicText, MagneticButton, Marquee, ProductConfigurator, ComparisonTable, BuyForm } from "../advanced";
+import { CinematicText, MagneticButton, Marquee, ProductConfigurator, ComparisonTable, BuyForm, scrollToBuyForm } from "../advanced";
 
 const ipads = [
   { name: "iPad Pro", chip: "M4", price: "From $999", desc: "The ultimate iPad experience with the most advanced display.", colors: [{ name: "Space Black", hex: "#1e1e1e" }, { name: "Silver", hex: "#e3e4e5" }] },
@@ -34,7 +34,7 @@ function IPadCard({ ipad, index }: { ipad: typeof ipads[0]; index: number }) {
         <p style={{ fontSize: 13, color: DARK, fontWeight: 500, margin: 0 }}>{ipad.price}</p>
         <div style={{ display: "flex", gap: 14, marginTop: 2 }}>
           <a href="#/ipad" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
-          <a href="#/ipad" style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
+          <a href="#/ipad" onClick={(e) => { e.preventDefault(); scrollToBuyForm(); }} style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none", cursor: "pointer" }}>Buy</a>
         </div>
       </div>
     </FadeIn>
@@ -44,7 +44,7 @@ function IPadCard({ ipad, index }: { ipad: typeof ipads[0]; index: number }) {
 export default function IPad() {
   return (
     <div style={{ backgroundColor: LIGHT_BG }}>
-      <PageHero title="iPad" subtitle="Touch, draw, and type on one magical device." dark={false} cta={<CTALinks learnMore="/ipad" buy="/store" />}
+      <PageHero title="iPad" subtitle="Touch, draw, and type on one magical device." dark={false} cta={<CTALinks learnMore="/ipad" buy="/ipad" buyScrollsToForm />}
         gradient="linear-gradient(180deg, #e8e8ed, #d2d2d7 40%, #c8c8cc 70%, #e8e8ed)"
       >
         <Parallax speed={0.1}>

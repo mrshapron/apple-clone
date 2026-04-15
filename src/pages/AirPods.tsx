@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FadeIn, ScaleIn, Parallax, GlowCard, PageHero, FeatureTile, SpecRow, FONT, DARK, WHITE_TEXT, BLUE, LIGHT_BG, CTALinks } from "../shared";
 import { AirPodsSVG } from "../devices";
 import { useTilt } from "../hooks";
-import { CinematicText, MagneticButton, Marquee, ComparisonTable, BuyForm } from "../advanced";
+import { CinematicText, MagneticButton, Marquee, ComparisonTable, BuyForm, scrollToBuyForm } from "../advanced";
 
 const models = [
   { name: "AirPods Pro 2", price: "$249", desc: "Active Noise Cancellation. Adaptive Audio. Conversation-aware.", tag: "Pro" },
@@ -33,7 +33,7 @@ export default function AirPods() {
   return (
     <div style={{ backgroundColor: LIGHT_BG }}>
       <PageHero title="AirPods" subtitle="Intelligent sound that fits your life." dark={false}
-        cta={<CTALinks learnMore="/airpods" buy="/store" />}
+        cta={<CTALinks learnMore="/airpods" buy="/airpods" buyScrollsToForm />}
         gradient="linear-gradient(180deg, #f5f5f7, #e8e8ed 40%, #d2d2d7 70%, #e8e8ed)"
       >
         <Parallax speed={0.08}>
@@ -113,7 +113,7 @@ export default function AirPods() {
                   <p style={{ fontSize: 14, color: DARK, fontWeight: 500, margin: 0 }}>{m.price}</p>
                   <div style={{ display: "flex", gap: 14 }}>
                     <a href="#/airpods" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
-                    <a href="#/airpods" style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
+                    <a href="#/airpods" onClick={(e) => { e.preventDefault(); scrollToBuyForm(); }} style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none", cursor: "pointer" }}>Buy</a>
                   </div>
                 </div>
               </FadeIn>

@@ -142,8 +142,8 @@ export function CinematicText({ text, style = {}, stagger = 0.08 }: {
 // ═══════════════════════════════════════════════════════════════════════════
 // MAGNETIC BUTTON
 // ═══════════════════════════════════════════════════════════════════════════
-export function MagneticButton({ children, href, variant = "primary", style: extraStyle = {} }: {
-  children: React.ReactNode; href?: string; variant?: "primary" | "secondary" | "ghost"; style?: React.CSSProperties;
+export function MagneticButton({ children, href, variant = "primary", style: extraStyle = {}, onClick }: {
+  children: React.ReactNode; href?: string; variant?: "primary" | "secondary" | "ghost"; style?: React.CSSProperties; onClick?: (e: React.MouseEvent) => void;
 }) {
   const ref = useRef<HTMLAnchorElement>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -164,7 +164,7 @@ export function MagneticButton({ children, href, variant = "primary", style: ext
   };
 
   return (
-    <a ref={ref} href={href || "#"} onMouseMove={onMove}
+    <a ref={ref} href={href || "#"} onClick={onClick} onMouseMove={onMove}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => { setOffset({ x: 0, y: 0 }); setHovering(false); }}
       style={{
@@ -286,7 +286,10 @@ export function ProductConfigurator({ name, basePrice, options, DeviceComponent 
           <p style={{ fontFamily: FONT, fontSize: 24, fontWeight: 400, color: DARK, margin: "0 0 16px" }}>
             ${totalPrice.toLocaleString()}<span style={{ fontSize: 14, color: "#6e6e73" }}>.00</span>
           </p>
-          <MagneticButton href="#/store" variant="primary">Add to Bag</MagneticButton>
+          <MagneticButton href="#/store" variant="primary" onClick={(e: React.MouseEvent) => {
+            const buyForm = document.getElementById("buy-form");
+            if (buyForm) { e.preventDefault(); buyForm.scrollIntoView({ behavior: "smooth" }); }
+          }}>Add to Bag</MagneticButton>
         </div>
       </div>
 
@@ -531,7 +534,10 @@ export function ComparisonTable({ models, specLabels, title = "Compare models." 
                       )}
                       <h3 style={{ fontFamily: FONT, fontSize: 22, fontWeight: 600, color: DARK, margin: "0 0 4px" }}>{m.name}</h3>
                       <p style={{ fontSize: 15, color: "#6e6e73", margin: "0 0 16px", fontWeight: 400 }}>{m.price}</p>
-                      <a href={m.buyLink || "#/store"} style={{
+                      <a href={m.buyLink || "#/store"} onClick={(e) => {
+                        const buyForm = document.getElementById("buy-form");
+                        if (buyForm) { e.preventDefault(); buyForm.scrollIntoView({ behavior: "smooth" }); }
+                      }} style={{
                         display: "inline-flex", alignItems: "center", backgroundColor: BLUE, color: "#fff",
                         padding: "10px 24px", borderRadius: 22, fontSize: 15, fontWeight: 500,
                         textDecoration: "none", transition: "background-color 0.2s",
@@ -612,6 +618,10 @@ export interface BuyStep {
   }[];
 }
 
+export function scrollToBuyForm() {
+  document.getElementById("buy-form")?.scrollIntoView({ behavior: "smooth" });
+}
+
 export function BuyForm({ productName, steps, basePrice, DeviceImage, onColorChange }: {
   productName: string;
   steps: BuyStep[];
@@ -645,7 +655,7 @@ export function BuyForm({ productName, steps, basePrice, DeviceImage, onColorCha
   };
 
   return (
-    <section style={{ backgroundColor: "#f5f5f7", padding: "80px 22px 90px" }}>
+    <section id="buy-form" style={{ backgroundColor: "#f5f5f7", padding: "80px 22px 90px" }}>
       <Toast />
       <div style={{ maxWidth: 1000, margin: "0 auto" }}>
         <h2 style={{

@@ -13,7 +13,7 @@ const products = [
 export default function TVHome() {
   return (
     <div style={{ backgroundColor: LIGHT_BG }}>
-      <PageHero title="TV & Home" subtitle="Smart home essentials that work together." cta={<CTALinks learnMore="/tv-home" buy="/store" />}
+      <PageHero title="TV & Home" subtitle="Smart home essentials that work together." cta={<CTALinks learnMore="/tv-home" buy="/store" />} 
         gradient="linear-gradient(180deg, #0a0a14, #1a1a2e 40%, #16213e 70%, #0a0a14)"
       >
         <Parallax speed={0.08}>

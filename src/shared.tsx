@@ -97,11 +97,14 @@ export function Link({ to, children, style: s, ...rest }: { to: string; children
 }
 
 // ─── CTA Links pair ──────────────────────────────────────────────────────
-export function CTALinks({ learnMore, buy, dark = true }: { learnMore: string; buy?: string; dark?: boolean }) {
+export function CTALinks({ learnMore, buy, dark = true, buyScrollsToForm = false }: { learnMore: string; buy?: string; dark?: boolean; buyScrollsToForm?: boolean }) {
   return (
     <div style={{ display: "flex", gap: 24, justifyContent: "center", marginTop: 18, flexWrap: "wrap" }}>
       <Link to={learnMore}>Learn more &gt;</Link>
-      {buy && <Link to={buy} style={{ display: "inline-flex", alignItems: "center", gap: 4, backgroundColor: BLUE, color: "#fff", padding: "10px 22px", borderRadius: 40, fontSize: 15, fontWeight: 500, transition: "background-color 0.3s" }}>Buy</Link>}
+      {buy && <a href={`#${buy}`} onClick={buyScrollsToForm ? (e) => {
+        e.preventDefault();
+        document.getElementById("buy-form")?.scrollIntoView({ behavior: "smooth" });
+      } : undefined} style={{ display: "inline-flex", alignItems: "center", gap: 4, color: BLUE, backgroundColor: BLUE, color: "#fff", padding: "10px 22px", borderRadius: 40, fontSize: 15, fontWeight: 500, transition: "background-color 0.3s", textDecoration: "none", cursor: "pointer" } as any}>Buy</a>}
     </div>
   );
 }
