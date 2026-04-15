@@ -241,7 +241,7 @@ export function Nav() {
           ))}
         </div>
         <div style={{ display: "flex", gap: 18, alignItems: "center" }}>
-          <a href="#" style={{ color: WHITE_TEXT, opacity: 0.8, transition: "opacity 0.3s" }}
+          <a href="#/support" style={{ color: WHITE_TEXT, opacity: 0.8, transition: "opacity 0.3s" }}
             onMouseEnter={e => e.currentTarget.style.opacity = "1"} onMouseLeave={e => e.currentTarget.style.opacity = "0.8"}>
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="6" cy="6" r="5.2"/><line x1="10" y1="10" x2="14" y2="14"/></svg>
           </a>
@@ -271,6 +271,25 @@ export function Nav() {
 
 // ─── Footer ──────────────────────────────────────────────────────────────
 export function Footer() {
+  const linkRoutes: Record<string, string> = {
+    "Store": "/store", "Mac": "/mac", "iPad": "/ipad", "iPhone": "/iphone",
+    "Watch": "/watch", "AirPods": "/airpods", "TV & Home": "/tv-home",
+    "AirTag": "/accessories", "Accessories": "/accessories", "Gift Cards": "/store",
+    "Apple Music": "/entertainment", "Apple TV+": "/entertainment", "Apple Fitness+": "/entertainment",
+    "Apple News+": "/entertainment", "Apple Arcade": "/entertainment", "iCloud": "/entertainment",
+    "Apple One": "/entertainment", "Apple Card": "/store",
+    "Find a Store": "/support", "Genius Bar": "/support", "Today at Apple": "/support",
+    "Apple Camp": "/support", "Apple Store App": "/store", "Certified Refurbished": "/store",
+    "Apple Trade In": "/store", "Financing": "/store", "Order Status": "/store",
+    "Apple and Business": "/store", "Shop for Business": "/store",
+    "Apple and Education": "/store", "Shop for K-12": "/store", "Shop for College": "/store",
+    "Accessibility": "/support", "Environment": "/support", "Privacy": "/support",
+    "Racial Equity and Justice": "/support", "Supply Chain": "/support",
+    "Newsroom": "/support", "Apple Leadership": "/support", "Career Opportunities": "/support",
+    "Investors": "/support", "Ethics & Compliance": "/support", "Events": "/support", "Contact Apple": "/support",
+    "Privacy Policy": "/support", "Terms of Use": "/support", "Sales and Refunds": "/store",
+    "Legal": "/support", "Site Map": "/support",
+  };
   const columns = [
     { title: "Shop and Learn", links: ["Store", "Mac", "iPad", "iPhone", "Watch", "AirPods", "TV & Home", "AirTag", "Accessories", "Gift Cards"] },
     { title: "Services", links: ["Apple Music", "Apple TV+", "Apple Fitness+", "Apple News+", "Apple Arcade", "iCloud", "Apple One", "Apple Card"] },
@@ -291,7 +310,7 @@ export function Footer() {
             <div key={col.title} style={{ minWidth: 120, flex: "1 1 auto", marginBottom: 20 }}>
               <h4 style={{ fontSize: 12, fontWeight: 600, color: DARK, margin: "0 0 8px" }}>{col.title}</h4>
               {col.links.map(l => (
-                <a key={l} href="#" style={{ display: "block", fontSize: 12, color: "#424245", textDecoration: "none", lineHeight: 2.1, transition: "color 0.2s" }}
+                <a key={l} href={`#${linkRoutes[l] || "/store"}`} style={{ display: "block", fontSize: 12, color: "#424245", textDecoration: "none", lineHeight: 2.1, transition: "color 0.2s" }}
                   onMouseEnter={e => e.currentTarget.style.color = DARK} onMouseLeave={e => e.currentTarget.style.color = "#424245"}
                 >{l}</a>
               ))}
@@ -302,7 +321,7 @@ export function Footer() {
           <p style={{ fontSize: 12, color: "#6e6e73", margin: 0 }}>Copyright © 2026 Apple Inc. All rights reserved.</p>
           <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
             {["Privacy Policy", "Terms of Use", "Sales and Refunds", "Legal", "Site Map"].map(l => (
-              <a key={l} href="#" style={{ fontSize: 12, color: "#424245", textDecoration: "none", transition: "color 0.2s" }}
+              <a key={l} href={`#${linkRoutes[l] || "/support"}`} style={{ fontSize: 12, color: "#424245", textDecoration: "none", transition: "color 0.2s" }}
                 onMouseEnter={e => e.currentTarget.style.color = DARK} onMouseLeave={e => e.currentTarget.style.color = "#424245"}
               >{l}</a>
             ))}

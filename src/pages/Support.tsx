@@ -3,13 +3,13 @@ import { FadeIn, FONT, FONT_TEXT, DARK, WHITE_TEXT, BLUE, LIGHT_BG } from "../sh
 import { CinematicText, TypeWriter } from "../advanced";
 
 const devices = [
-  { name: "iPhone", icon: "📱" },
-  { name: "Mac", icon: "💻" },
-  { name: "iPad", icon: "📋" },
-  { name: "Watch", icon: "⌚" },
-  { name: "AirPods", icon: "🎧" },
-  { name: "Music", icon: "🎵" },
-  { name: "TV", icon: "📺" },
+  { name: "iPhone", icon: "📱", route: "/iphone" },
+  { name: "Mac", icon: "💻", route: "/mac" },
+  { name: "iPad", icon: "📋", route: "/ipad" },
+  { name: "Watch", icon: "⌚", route: "/watch" },
+  { name: "AirPods", icon: "🎧", route: "/airpods" },
+  { name: "Music", icon: "🎵", route: "/entertainment" },
+  { name: "TV", icon: "📺", route: "/tv-home" },
 ];
 
 const topics = [
@@ -72,7 +72,7 @@ export default function Support() {
         <FadeIn delay={0.1}>
           <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
             {devices.map(d => (
-              <a key={d.name} href={`#/${d.name.toLowerCase()}`} style={{
+              <a key={d.name} href={`#${d.route}`} style={{
                 width: 100, height: 100, borderRadius: 20, backgroundColor: "#fff",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.04)", display: "flex", flexDirection: "column",
                 alignItems: "center", justifyContent: "center", gap: 6, textDecoration: "none",

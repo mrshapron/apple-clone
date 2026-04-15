@@ -113,7 +113,7 @@ export default function AirPods() {
                   <p style={{ fontSize: 14, color: DARK, fontWeight: 500, margin: 0 }}>{m.price}</p>
                   <div style={{ display: "flex", gap: 14 }}>
                     <a href="#/airpods" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
-                    <a href="#/store" style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
+                    <a href="#/airpods" style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
                   </div>
                 </div>
               </FadeIn>
@@ -145,21 +145,25 @@ export default function AirPods() {
             name: "AirPods Pro 2", price: "$249",
             image: <AirPodsSVG width={100} />,
             specs: { design: "In-ear with silicone tips", chip: "H2 chip", anc: true, transparency: true, adaptiveAudio: true, conversationAware: true, personalizedSpatial: true, hearingHealth: true, battery: "Up to 6 hours (30 with case)", chargingCase: "MagSafe, USB-C, Qi", waterResistance: "IP54", lossless: true },
+            buyLink: "#/airpods", learnLink: "#/airpods",
           },
           {
             name: "AirPods 4 with ANC", price: "$179", isNew: true,
             image: <AirPodsSVG width={90} />,
             specs: { design: "Open-ear comfort", chip: "H2 chip", anc: true, transparency: true, adaptiveAudio: true, conversationAware: true, personalizedSpatial: true, hearingHealth: false, battery: "Up to 5 hours (30 with case)", chargingCase: "USB-C", waterResistance: "IP54", lossless: false },
+            buyLink: "#/airpods", learnLink: "#/airpods",
           },
           {
             name: "AirPods 4", price: "$129",
             image: <AirPodsSVG width={85} />,
             specs: { design: "Open-ear comfort", chip: "H2 chip", anc: false, transparency: false, adaptiveAudio: false, conversationAware: false, personalizedSpatial: true, hearingHealth: false, battery: "Up to 5 hours (30 with case)", chargingCase: "USB-C", waterResistance: "IP54", lossless: false },
+            buyLink: "#/airpods", learnLink: "#/airpods",
           },
           {
             name: "AirPods Max", price: "$549",
             image: <svg width="60" height="60" viewBox="0 0 80 80"><defs><radialGradient id="hpGC" cx="0.35" cy="0.35"><stop offset="0%" stopColor="#f0f0f0"/><stop offset="100%" stopColor="#ccc"/></radialGradient></defs><circle cx="40" cy="40" r="34" fill="url(#hpGC)" /><circle cx="40" cy="40" r="24" fill="#e8e8ed" /></svg>,
             specs: { design: "Over-ear cushions", chip: "H1 chip", anc: true, transparency: true, adaptiveAudio: false, conversationAware: false, personalizedSpatial: true, hearingHealth: false, battery: "Up to 20 hours", chargingCase: "Smart Case", waterResistance: "—", lossless: true },
+            buyLink: "#/airpods", learnLink: "#/airpods",
           },
         ]}
         specLabels={[

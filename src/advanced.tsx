@@ -468,6 +468,8 @@ export interface ComparisonModel {
   colors?: { name: string; hex: string }[];
   isNew?: boolean;
   specs: Record<string, string | boolean>;
+  buyLink?: string;
+  learnLink?: string;
 }
 
 export function ComparisonTable({ models, specLabels, title = "Compare models." }: {
@@ -529,7 +531,7 @@ export function ComparisonTable({ models, specLabels, title = "Compare models." 
                       )}
                       <h3 style={{ fontFamily: FONT, fontSize: 22, fontWeight: 600, color: DARK, margin: "0 0 4px" }}>{m.name}</h3>
                       <p style={{ fontSize: 15, color: "#6e6e73", margin: "0 0 16px", fontWeight: 400 }}>{m.price}</p>
-                      <a href="#/store" style={{
+                      <a href={m.buyLink || "#/store"} style={{
                         display: "inline-flex", alignItems: "center", backgroundColor: BLUE, color: "#fff",
                         padding: "10px 24px", borderRadius: 22, fontSize: 15, fontWeight: 500,
                         textDecoration: "none", transition: "background-color 0.2s",
@@ -538,7 +540,7 @@ export function ComparisonTable({ models, specLabels, title = "Compare models." 
                         onMouseLeave={e => e.currentTarget.style.backgroundColor = BLUE}
                       >Buy</a>
                       <div style={{ marginTop: 10 }}>
-                        <a href="#" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
+                        <a href={m.learnLink || "#/store"} style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
                       </div>
                     </div>
                   </th>

@@ -30,7 +30,7 @@ function WatchCard({ watch, index }: { watch: typeof watches[0]; index: number }
         <p style={{ fontSize: 13, color: DARK, fontWeight: 500, margin: 0 }}>{watch.price}</p>
         <div style={{ display: "flex", gap: 14, marginTop: 2 }}>
           <a href="#/watch" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
-          <a href="#/store" style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
+          <a href="#/watch" style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
         </div>
       </div>
     </FadeIn>
@@ -142,18 +142,21 @@ export default function Watch() {
             image: <WatchSVG width={90} color="#a8a5a0" />,
             colors: [{ name: "Natural Titanium", hex: "#a8a5a0" }, { name: "Black Titanium", hex: "#2c2c2e" }],
             specs: { caseSize: "49mm", caseMaterial: "Titanium", display: "Always-On Retina LTPO2 OLED", waterResistance: "100m / EN13319", battery: "Up to 36 hours (72 in low power)", gps: true, cellular: true, bloodOxygen: true, ecg: true, tempSensing: true, crashDetection: true, depthGauge: true, siren: true, actionButton: true },
+            buyLink: "#/watch", learnLink: "#/watch",
           },
           {
             name: "Apple Watch Series 10", price: "From $399", isNew: true,
             image: <WatchSVG width={75} color="#1a1a1a" />,
             colors: [{ name: "Jet Black", hex: "#1a1a1a" }, { name: "Rose Gold", hex: "#d4a76a" }, { name: "Silver", hex: "#e3e4e5" }],
             specs: { caseSize: "42mm or 46mm", caseMaterial: "Aluminum or Titanium", display: "Always-On Retina LTPO3 OLED", waterResistance: "50m / WR50", battery: "Up to 18 hours (36 in low power)", gps: true, cellular: true, bloodOxygen: true, ecg: true, tempSensing: true, crashDetection: true, depthGauge: false, siren: false, actionButton: false },
+            buyLink: "#/watch", learnLink: "#/watch",
           },
           {
             name: "Apple Watch SE", price: "From $249",
             image: <WatchSVG width={68} color="#f0e6d3" />,
             colors: [{ name: "Midnight", hex: "#1d1d3b" }, { name: "Starlight", hex: "#f0e6d3" }, { name: "Silver", hex: "#e3e4e5" }],
             specs: { caseSize: "40mm or 44mm", caseMaterial: "Aluminum", display: "Retina LTPO OLED", waterResistance: "50m / WR50", battery: "Up to 18 hours", gps: true, cellular: true, bloodOxygen: false, ecg: false, tempSensing: false, crashDetection: true, depthGauge: false, siren: false, actionButton: false },
+            buyLink: "#/watch", learnLink: "#/watch",
           },
         ]}
         specLabels={[

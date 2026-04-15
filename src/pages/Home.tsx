@@ -38,16 +38,16 @@ export default function Home() {
         <div style={{ padding: "80px 20px 0", position: "relative", zIndex: 1 }}>
           <FadeIn>
             <h1 style={{ fontFamily: FONT, fontSize: "clamp(48px,9vw,96px)", fontWeight: 700, color: WHITE_TEXT, letterSpacing: "-0.035em", lineHeight: 1.02, margin: 0 }}>
-              <CinematicText text="iPhone 16 Pro" stagger={0.1} />
+              <CinematicText text="iPhone 17 Pro" stagger={0.1} />
             </h1>
           </FadeIn>
           <FadeIn delay={0.5}>
-            <h2 style={{ fontFamily: FONT, fontSize: "clamp(22px,4vw,32px)", fontWeight: 400, color: "#a1a1a6", margin: "10px 0 0", letterSpacing: "0.02em" }}>Oh. So. Pro.</h2>
+            <h2 style={{ fontFamily: FONT, fontSize: "clamp(22px,4vw,32px)", fontWeight: 400, color: "#a1a1a6", margin: "10px 0 0", letterSpacing: "0.02em" }}>The ultimate iPhone.</h2>
           </FadeIn>
           <FadeIn delay={0.7}>
             <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 22 }}>
               <MagneticButton href="#/iphone" variant="ghost">Learn more</MagneticButton>
-              <MagneticButton href="#/store" variant="primary">Buy</MagneticButton>
+              <MagneticButton href="#/buy-iphone" variant="primary">Buy</MagneticButton>
             </div>
           </FadeIn>
           <ScaleIn delay={0.9}>
@@ -84,7 +84,7 @@ export default function Home() {
             <FadeIn delay={0.45}>
               <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 20 }}>
                 <MagneticButton href="#/mac" variant="ghost">Learn more</MagneticButton>
-                <MagneticButton href="#/store" variant="primary">Buy</MagneticButton>
+                <MagneticButton href="#/mac" variant="primary">Buy</MagneticButton>
               </div>
             </FadeIn>
             <ScaleIn delay={0.55}>
@@ -101,13 +101,13 @@ export default function Home() {
 
         {/* ── Dual cards ───────────────────────────── */}
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <DualCard bg="#fbfbfd" title="iPad Pro" subtitle="Thinpossible." learnTo="/ipad" buyTo="/store"
+          <DualCard bg="#fbfbfd" title="iPad Pro" subtitle="Thinpossible." learnTo="/ipad" buyTo="/ipad"
             visual={<IPadSVG width={Math.min(220, window.innerWidth * 0.22)} color="#1e1e1e" />} />
-          <DualCard bg="#000" title="Apple Watch" subtitle="The ultimate health companion." learnTo="/watch" buyTo="/store"
+          <DualCard bg="#000" title="Apple Watch" subtitle="The ultimate health companion." learnTo="/watch" buyTo="/watch"
             visual={<WatchSVG width={Math.min(140, window.innerWidth * 0.15)} color="#2c2c2e" />} />
         </div>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 12 }}>
-          <DualCard bg="#fbfbfd" title="AirPods Pro" subtitle="Adaptive Audio. Now playing." learnTo="/airpods" buyTo="/store"
+          <DualCard bg="#fbfbfd" title="AirPods Pro" subtitle="Adaptive Audio. Now playing." learnTo="/airpods" buyTo="/airpods"
             visual={<AirPodsSVG width={Math.min(220, window.innerWidth * 0.22)} />} />
           <DualCard bg="#000" title="Apple Vision Pro" subtitle="Welcome to spatial computing." learnTo="/tv-home"
             visual={<div style={{ padding: "20px 0" }}><VisionProSVG width={Math.min(300, window.innerWidth * 0.3)} /></div>} />

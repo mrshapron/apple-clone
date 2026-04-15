@@ -37,7 +37,7 @@ export default function Entertainment() {
           <h2 style={{ fontFamily: FONT, fontSize: "clamp(32px,5vw,56px)", fontWeight: 700, color: WHITE_TEXT, letterSpacing: "-0.025em", margin: "0 0 10px" }}>Apple One</h2>
           <p style={{ fontSize: "clamp(16px,2.5vw,22px)", color: "#a1a1a6", margin: "0 auto 8px", maxWidth: 600, lineHeight: 1.4 }}>Bundle your favorite Apple services and enjoy more for less.</p>
           <p style={{ fontSize: "clamp(14px,2vw,17px)", color: "#6e6e73", margin: "0 0 20px" }}>From $19.95/mo.</p>
-          <MagneticButton href="#/store" variant="ghost">Try it free</MagneticButton>
+          <MagneticButton href="#/entertainment" variant="ghost">Try it free</MagneticButton>
         </FadeIn>
         <FadeIn delay={0.2}>
           <div style={{ display: "flex", justifyContent: "center", gap: 12, marginTop: 40, flexWrap: "wrap" }}>
@@ -75,7 +75,7 @@ export default function Entertainment() {
                 <p style={{ fontSize: 14, color: "#6e6e73", margin: 0, lineHeight: 1.5, flex: 1 }}>{s.desc}</p>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontSize: 14, color: DARK, fontWeight: 500 }}>{s.price}</span>
-                  <a href="#/store" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Try it free &gt;</a>
+                  <a href="#/entertainment" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Try it free &gt;</a>
                 </div>
               </div>
             </FadeIn>
@@ -119,7 +119,7 @@ export default function Entertainment() {
         <FadeIn>
           <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,4.5vw,48px)", fontWeight: 700, color: DARK, letterSpacing: "-0.02em", margin: "0 0 8px" }}>Privacy is built in.</h2>
           <p style={{ fontSize: "clamp(14px,2vw,19px)", color: "#6e6e73", margin: "0 auto 20px", maxWidth: 500, lineHeight: 1.5 }}>Every Apple service is designed from the ground up to protect your privacy and keep your personal information safe.</p>
-          <MagneticButton href="#" variant="ghost">Learn more about Apple and privacy</MagneticButton>
+          <MagneticButton href="#/support" variant="ghost">Learn more about Apple and privacy</MagneticButton>
         </FadeIn>
       </section>
     </div>

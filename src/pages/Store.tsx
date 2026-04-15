@@ -5,21 +5,21 @@ import { useTilt } from "../hooks";
 import { CinematicText, MagneticButton, Marquee } from "../advanced";
 
 const categories = [
-  { name: "Mac", price: "From $599", Device: () => <MacBookSVG width={70} /> },
-  { name: "iPhone", price: "From $429", Device: () => <IPhoneSVG width={32} /> },
-  { name: "iPad", price: "From $349", Device: () => <IPadSVG width={40} /> },
-  { name: "Apple Watch", price: "From $249", Device: () => <WatchSVG width={32} /> },
-  { name: "AirPods", price: "From $129", Device: () => <AirPodsSVG width={60} /> },
-  { name: "HomePod", price: "From $99", Device: () => <HomePodSVG width={36} /> },
+  { name: "Mac", price: "From $599", route: "/mac", Device: () => <MacBookSVG width={70} /> },
+  { name: "iPhone", price: "From $599", route: "/iphone", Device: () => <IPhoneSVG width={32} /> },
+  { name: "iPad", price: "From $349", route: "/ipad", Device: () => <IPadSVG width={40} /> },
+  { name: "Apple Watch", price: "From $249", route: "/watch", Device: () => <WatchSVG width={32} /> },
+  { name: "AirPods", price: "From $129", route: "/airpods", Device: () => <AirPodsSVG width={60} /> },
+  { name: "HomePod", price: "From $99", route: "/tv-home", Device: () => <HomePodSVG width={36} /> },
 ];
 
 const featured = [
-  { title: "MacBook Air 15\"", subtitle: "The 15-inch laptop with the M4 chip.", price: "$1,299", color: "#1a1a2e", textColor: WHITE_TEXT, Device: () => <MacBookSVG width={260} color="#2c2c2e" /> },
-  { title: "iPhone 16 Pro", subtitle: "The most advanced iPhone.", price: "$999", color: "#0f3460", textColor: WHITE_TEXT, Device: () => <IPhoneSVG width={100} color="#b5a48c" /> },
-  { title: "iPad Air", subtitle: "Fresh Air.", price: "$599", color: "#fbfbfd", textColor: DARK, Device: () => <IPadSVG width={130} color="#5b8ec2" /> },
-  { title: "Apple Watch Ultra 2", subtitle: "Next-level adventure.", price: "$799", color: "#2c2c2e", textColor: WHITE_TEXT, Device: () => <WatchSVG width={80} color="#a8a5a0" /> },
-  { title: "AirPods Pro 2", subtitle: "Intelligent noise cancellation.", price: "$249", color: "#fbfbfd", textColor: DARK, Device: () => <AirPodsSVG width={140} /> },
-  { title: "MacBook Pro", subtitle: "Mind-blowing. Head-turning.", price: "$1,599", color: "#1a1a2e", textColor: WHITE_TEXT, Device: () => <MacBookSVG width={260} color="#1e1e1e" /> },
+  { title: "MacBook Air 15\"", subtitle: "The 15-inch laptop with the M4 chip.", price: "$1,299", color: "#1a1a2e", textColor: WHITE_TEXT, learnRoute: "/mac", buyRoute: "/mac", Device: () => <MacBookSVG width={260} color="#2c2c2e" /> },
+  { title: "iPhone 17 Pro", subtitle: "The ultimate iPhone.", price: "$1,099", color: "#0f3460", textColor: WHITE_TEXT, learnRoute: "/iphone", buyRoute: "/buy-iphone", Device: () => <IPhoneSVG width={100} color="#a8a5a0" /> },
+  { title: "iPad Air", subtitle: "Fresh Air.", price: "$599", color: "#fbfbfd", textColor: DARK, learnRoute: "/ipad", buyRoute: "/ipad", Device: () => <IPadSVG width={130} color="#5b8ec2" /> },
+  { title: "Apple Watch Ultra 2", subtitle: "Next-level adventure.", price: "$799", color: "#2c2c2e", textColor: WHITE_TEXT, learnRoute: "/watch", buyRoute: "/watch", Device: () => <WatchSVG width={80} color="#a8a5a0" /> },
+  { title: "AirPods Pro 2", subtitle: "Intelligent noise cancellation.", price: "$249", color: "#fbfbfd", textColor: DARK, learnRoute: "/airpods", buyRoute: "/airpods", Device: () => <AirPodsSVG width={140} /> },
+  { title: "MacBook Pro", subtitle: "Mind-blowing. Head-turning.", price: "$1,599", color: "#1a1a2e", textColor: WHITE_TEXT, learnRoute: "/mac", buyRoute: "/mac", Device: () => <MacBookSVG width={260} color="#1e1e1e" /> },
 ];
 
 function ProductCard({ item, index }: { item: typeof featured[0]; index: number }) {
@@ -43,8 +43,8 @@ function ProductCard({ item, index }: { item: typeof featured[0]; index: number 
         <div>
           <p style={{ fontSize: 14, color: item.textColor, margin: "0 0 12px" }}>{item.price}</p>
           <div style={{ display: "flex", gap: 16 }}>
-            <a href="#/store" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
-            <a href="#/store" style={{ display: "inline-flex", alignItems: "center", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
+            <a href={`#${item.learnRoute}`} style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
+            <a href={`#${item.buyRoute}`} style={{ display: "inline-flex", alignItems: "center", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@ export default function Store() {
         <FadeIn>
           <div style={{ display: "flex", gap: 16, overflowX: "auto", paddingBottom: 20, scrollbarWidth: "none" }}>
             {categories.map((cat) => (
-              <a key={cat.name} href="#/store" style={{
+              <a key={cat.name} href={`#${cat.route}`} style={{
                 minWidth: 140, backgroundColor: "#fff", borderRadius: 22, padding: "28px 16px 20px", textAlign: "center",
                 textDecoration: "none", transition: "box-shadow 0.4s, transform 0.4s", boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                 display: "flex", flexDirection: "column", alignItems: "center", gap: 8,

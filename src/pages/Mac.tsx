@@ -38,7 +38,7 @@ function MacModelCard({ model, index }: { model: typeof models[0]; index: number
         <p style={{ fontSize: 14, color: DARK, fontWeight: 500, margin: 0 }}>{model.price}</p>
         <div style={{ display: "flex", gap: 16, marginTop: 2 }}>
           <a href="#/mac" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
-          <a href="#/store" style={{ display: "inline-flex", alignItems: "center", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
+          <a href="#/mac" style={{ display: "inline-flex", alignItems: "center", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
         </div>
       </div>
     </FadeIn>
@@ -150,24 +150,28 @@ export default function Mac() {
             image: <MacBookSVG width={160} color="#7d7e80" />,
             colors: [{ name: "Midnight", hex: "#1d1d3b" }, { name: "Starlight", hex: "#f0e6d3" }, { name: "Space Gray", hex: "#7d7e80" }, { name: "Silver", hex: "#e3e4e5" }],
             specs: { chip: "Apple M4", cpu: "10-core CPU", gpu: "10-core GPU", memory: "16GB – 32GB", storage: "256GB – 2TB", display: '13.6" Liquid Retina', battery: "Up to 18 hours", weight: "2.7 lb", ports: "2x Thunderbolt, MagSafe, Audio", touchId: true, magsafe: true, fanless: true },
+            buyLink: "#/mac", learnLink: "#/mac",
           },
           {
             name: 'MacBook Air 15"', price: "From $1,299", isNew: true,
             image: <MacBookSVG width={180} color="#1d1d3b" />,
             colors: [{ name: "Midnight", hex: "#1d1d3b" }, { name: "Starlight", hex: "#f0e6d3" }, { name: "Space Gray", hex: "#7d7e80" }, { name: "Silver", hex: "#e3e4e5" }],
             specs: { chip: "Apple M4", cpu: "10-core CPU", gpu: "10-core GPU", memory: "16GB – 32GB", storage: "256GB – 2TB", display: '15.3" Liquid Retina', battery: "Up to 18 hours", weight: "3.3 lb", ports: "2x Thunderbolt, MagSafe, Audio", touchId: true, magsafe: true, fanless: true },
+            buyLink: "#/mac", learnLink: "#/mac",
           },
           {
             name: 'MacBook Pro 14"', price: "From $1,599",
             image: <MacBookSVG width={160} color="#1e1e1e" />,
             colors: [{ name: "Space Black", hex: "#1e1e1e" }, { name: "Silver", hex: "#e3e4e5" }],
             specs: { chip: "Apple M4 Pro", cpu: "12-core CPU", gpu: "18-core GPU", memory: "24GB – 48GB", storage: "512GB – 4TB", display: '14.2" Liquid Retina XDR', battery: "Up to 24 hours", weight: "3.4 lb", ports: "3x Thunderbolt, HDMI, SD, MagSafe", touchId: true, magsafe: true, fanless: false },
+            buyLink: "#/mac", learnLink: "#/mac",
           },
           {
             name: 'MacBook Pro 16"', price: "From $2,499",
             image: <MacBookSVG width={180} color="#1e1e1e" />,
             colors: [{ name: "Space Black", hex: "#1e1e1e" }, { name: "Silver", hex: "#e3e4e5" }],
             specs: { chip: "Apple M4 Max", cpu: "16-core CPU", gpu: "40-core GPU", memory: "48GB – 128GB", storage: "512GB – 8TB", display: '16.2" Liquid Retina XDR', battery: "Up to 24 hours", weight: "4.7 lb", ports: "3x Thunderbolt, HDMI, SD, MagSafe", touchId: true, magsafe: true, fanless: false },
+            buyLink: "#/mac", learnLink: "#/mac",
           },
         ]}
         specLabels={[
@@ -242,7 +246,7 @@ export default function Mac() {
         <FadeIn>
           <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,4.5vw,48px)", fontWeight: 700, color: DARK, letterSpacing: "-0.02em", margin: "0 0 10px" }}>Trade in your current Mac.</h2>
           <p style={{ fontSize: "clamp(14px,2vw,19px)", color: "#6e6e73", margin: "0 auto 24px", maxWidth: 500 }}>Get credit toward a new one. It's good for you and the planet.</p>
-          <MagneticButton href="#/store" variant="ghost">Get your estimate</MagneticButton>
+          <MagneticButton href="#/mac" variant="ghost">Get your estimate</MagneticButton>
         </FadeIn>
       </section>
     </div>

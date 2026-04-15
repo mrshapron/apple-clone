@@ -34,7 +34,7 @@ function IPadCard({ ipad, index }: { ipad: typeof ipads[0]; index: number }) {
         <p style={{ fontSize: 13, color: DARK, fontWeight: 500, margin: 0 }}>{ipad.price}</p>
         <div style={{ display: "flex", gap: 14, marginTop: 2 }}>
           <a href="#/ipad" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
-          <a href="#/store" style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
+          <a href="#/ipad" style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
         </div>
       </div>
     </FadeIn>
@@ -149,24 +149,28 @@ export default function IPad() {
             image: <IPadSVG width={100} color="#1e1e1e" />,
             colors: [{ name: "Space Black", hex: "#1e1e1e" }, { name: "Silver", hex: "#e3e4e5" }],
             specs: { display: '11" or 13" Ultra Retina XDR', chip: "Apple M4", camera: "12MP Wide + 10MP Ultra Wide", frontCamera: "12MP TrueDepth (landscape)", connector: "USB-C / Thunderbolt", pencil: "Apple Pencil Pro", keyboard: "Magic Keyboard", faceId: true, proMotion: true, lidar: true },
+            buyLink: "#/ipad", learnLink: "#/ipad",
           },
           {
             name: "iPad Air", price: "From $599",
             image: <IPadSVG width={90} color="#5b8ec2" />,
             colors: [{ name: "Blue", hex: "#5b8ec2" }, { name: "Purple", hex: "#967bb6" }, { name: "Starlight", hex: "#f0e6d3" }, { name: "Space Gray", hex: "#7d7e80" }],
             specs: { display: '11" or 13" Liquid Retina', chip: "Apple M3", camera: "12MP Wide", frontCamera: "12MP (landscape)", connector: "USB-C", pencil: "Apple Pencil Pro", keyboard: "Magic Keyboard", faceId: false, proMotion: false, lidar: false },
+            buyLink: "#/ipad", learnLink: "#/ipad",
           },
           {
             name: "iPad", price: "From $349",
             image: <IPadSVG width={80} color="#e8d06c" />,
             colors: [{ name: "Blue", hex: "#5b8ec2" }, { name: "Pink", hex: "#e8a0b5" }, { name: "Yellow", hex: "#e8d06c" }, { name: "Silver", hex: "#e3e4e5" }],
             specs: { display: '10.9" Liquid Retina', chip: "A16 Bionic", camera: "12MP Wide", frontCamera: "12MP (landscape)", connector: "USB-C", pencil: "Apple Pencil (USB-C)", keyboard: "Magic Keyboard Folio", faceId: false, proMotion: false, lidar: false },
+            buyLink: "#/ipad", learnLink: "#/ipad",
           },
           {
             name: "iPad mini", price: "From $499",
             image: <IPadSVG width={68} color="#967bb6" />,
             colors: [{ name: "Blue", hex: "#5b8ec2" }, { name: "Purple", hex: "#967bb6" }, { name: "Starlight", hex: "#f0e6d3" }, { name: "Space Gray", hex: "#7d7e80" }],
             specs: { display: '8.3" Liquid Retina', chip: "A17 Pro", camera: "12MP Wide", frontCamera: "12MP (landscape)", connector: "USB-C", pencil: "Apple Pencil Pro", keyboard: "Bluetooth keyboards", faceId: false, proMotion: false, lidar: false },
+            buyLink: "#/ipad", learnLink: "#/ipad",
           },
         ]}
         specLabels={[
@@ -235,7 +239,7 @@ export default function IPad() {
         <FadeIn>
           <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,4.5vw,48px)", fontWeight: 700, color: DARK, letterSpacing: "-0.02em", margin: "0 0 10px" }}>Why iPad?</h2>
           <p style={{ fontSize: "clamp(14px,2vw,19px)", color: "#6e6e73", margin: "0 auto 24px", maxWidth: 500 }}>There are so many reasons to make iPad your next computer.</p>
-          <MagneticButton href="#/store" variant="ghost">Learn more</MagneticButton>
+          <MagneticButton href="#/ipad" variant="ghost">Learn more about iPad</MagneticButton>
         </FadeIn>
       </section>
     </div>

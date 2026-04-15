@@ -76,7 +76,7 @@ export default function Accessories() {
                 <p style={{ fontSize: 13, color: "#6e6e73", margin: 0, lineHeight: 1.4, flex: 1 }}>{item.desc}</p>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontSize: 14, color: DARK, fontWeight: 500 }}>{item.price}</span>
-                  <a href="#/store" style={{ color: BLUE, fontSize: 13, textDecoration: "none" }}>Buy &gt;</a>
+                  <a href="#/accessories" style={{ color: BLUE, fontSize: 13, textDecoration: "none" }}>Buy &gt;</a>
                 </div>
               </div>
             </FadeIn>

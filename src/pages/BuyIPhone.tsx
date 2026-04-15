@@ -174,7 +174,7 @@ function TradeInBanner() {
 
 function PaymentLink() {
   return (
-    <a href="#" style={{
+    <a href="#/buy-iphone" style={{
       display: "flex", alignItems: "center", gap: 6, fontSize: 14, color: BLUE,
       textDecoration: "none", marginBottom: 20,
     }}>
@@ -209,6 +209,7 @@ function PhoneComparisonSection() {
             emergencySos: true,
             appleIntelligence: true,
           },
+          buyLink: "#/buy-iphone", learnLink: "#/iphone",
         },
         {
           name: "iPhone Air", price: "From $999",
@@ -231,6 +232,7 @@ function PhoneComparisonSection() {
             emergencySos: true,
             appleIntelligence: true,
           },
+          buyLink: "#/buy-iphone", learnLink: "#/iphone",
         },
         {
           name: "iPhone 17", price: "From $799", isNew: true,
@@ -253,6 +255,7 @@ function PhoneComparisonSection() {
             emergencySos: true,
             appleIntelligence: true,
           },
+          buyLink: "#/buy-iphone", learnLink: "#/iphone",
         },
         {
           name: "iPhone 17e", price: "From $599",
@@ -275,6 +278,7 @@ function PhoneComparisonSection() {
             emergencySos: true,
             appleIntelligence: true,
           },
+          buyLink: "#/buy-iphone", learnLink: "#/iphone",
         },
       ]}
       specLabels={[

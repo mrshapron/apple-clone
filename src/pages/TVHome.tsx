@@ -80,7 +80,7 @@ export default function TVHome() {
                   </div>
                   <div style={{ display: "flex", gap: 14 }}>
                     <a href="#/tv-home" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
-                    <a href="#/store" style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
+                    <a href="#/tv-home" style={{ display: "inline-flex", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
                   </div>
                 </div>
               </FadeIn>

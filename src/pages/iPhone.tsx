@@ -175,24 +175,28 @@ export default function IPhone() {
             image: <IPhoneSVG width={70} color="#a8a5a0" />,
             colors: [{ name: "Natural Titanium", hex: "#a8a5a0" }, { name: "Desert Titanium", hex: "#c4a77d" }, { name: "White Titanium", hex: "#e8e6e1" }, { name: "Black Titanium", hex: "#3b3b3d" }],
             specs: { display: '6.9" or 6.3" Super Retina XDR', chip: "A19 Pro", camera: "48MP Main | 48MP Ultra Wide | 12MP 5x Telephoto", battery: "Up to 33 hours", storage: "256GB – 1TB", faceId: true, actionButton: true, cameraControl: true, usbc: true, dynamicIsland: true, aod: true, proMotion: true, emergencySos: true },
+            buyLink: "#/buy-iphone", learnLink: "#/iphone",
           },
           {
             name: "iPhone Air", price: "From $999",
             image: <IPhoneSVG width={62} color="#1d1d3b" />,
             colors: [{ name: "Midnight", hex: "#1d1d3b" }, { name: "Starlight", hex: "#f0e6d3" }, { name: "Green", hex: "#a8c9a5" }, { name: "Blue", hex: "#7ba4c9" }],
             specs: { display: '6.5" Super Retina XDR', chip: "A19", camera: "48MP Main | 12MP Ultra Wide", battery: "Up to 26 hours", storage: "128GB – 512GB", faceId: true, actionButton: true, cameraControl: true, usbc: true, dynamicIsland: true, aod: true, proMotion: true, emergencySos: true },
+            buyLink: "#/buy-iphone", learnLink: "#/iphone",
           },
           {
             name: "iPhone 17", price: "From $799", isNew: true,
             image: <IPhoneSVG width={58} color="#3f51b5" />,
             colors: [{ name: "Ultramarine", hex: "#3f51b5" }, { name: "Teal", hex: "#2ca5a5" }, { name: "Pink", hex: "#e8a0b5" }, { name: "White", hex: "#f0efe6" }, { name: "Black", hex: "#2c2c2e" }],
             specs: { display: '6.3" Super Retina XDR', chip: "A19", camera: "48MP Main | 12MP Ultra Wide", battery: "Up to 26 hours", storage: "128GB – 512GB", faceId: true, actionButton: true, cameraControl: true, usbc: true, dynamicIsland: true, aod: true, proMotion: true, emergencySos: true },
+            buyLink: "#/buy-iphone", learnLink: "#/iphone",
           },
           {
             name: "iPhone 17e", price: "From $599",
             image: <IPhoneSVG width={54} color="#f4c2c2" />,
             colors: [{ name: "Black", hex: "#2c2c2e" }, { name: "White", hex: "#f0efe6" }, { name: "Pink", hex: "#f4c2c2" }],
             specs: { display: '6.1" Super Retina XDR', chip: "A18", camera: "48MP Main", battery: "Up to 22 hours", storage: "128GB – 256GB", faceId: true, actionButton: false, cameraControl: false, usbc: true, dynamicIsland: false, aod: false, proMotion: false, emergencySos: true },
+            buyLink: "#/buy-iphone", learnLink: "#/iphone",
           },
         ]}
         specLabels={[
