@@ -12,6 +12,7 @@ import TVHome from "./pages/TVHome";
 import Entertainment from "./pages/Entertainment";
 import Accessories from "./pages/Accessories";
 import Support from "./pages/Support";
+import BuyIPhone from "./pages/BuyIPhone";
 
 function Router() {
   const { route, transitioning } = useRouter();
@@ -21,6 +22,7 @@ function Router() {
       case "/store": return Store;
       case "/mac": return Mac;
       case "/iphone": return IPhone;
+      case "/buy-iphone": return BuyIPhone;
       case "/ipad": return IPad;
       case "/watch": return Watch;
       case "/airpods": return AirPods;

@@ -5,16 +5,16 @@ import { useTilt } from "../hooks";
 import { StarField, GradientMesh, CinematicText, MagneticButton, ProductConfigurator, Marquee, ComparisonSlider, ComparisonTable, BuyForm } from "../advanced";
 
 const iphones = [
-  { name: "iPhone 16 Pro Max", price: "From $1,199", desc: "Our largest display. The thinnest borders ever.", sizes: '6.9"', colors: [{ name: "Desert Titanium", hex: "#b5a48c" }, { name: "Natural Titanium", hex: "#a8a5a0" }, { name: "White Titanium", hex: "#e8e6e1" }, { name: "Black Titanium", hex: "#3b3b3d" }] },
-  { name: "iPhone 16 Pro", price: "From $999", desc: "Camera Control. A18 Pro chip. Titanium design.", sizes: '6.3"', colors: [{ name: "Desert Titanium", hex: "#b5a48c" }, { name: "Natural Titanium", hex: "#a8a5a0" }, { name: "White Titanium", hex: "#e8e6e1" }, { name: "Black Titanium", hex: "#3b3b3d" }] },
-  { name: "iPhone 16", price: "From $799", desc: "A total powerhouse with Camera Control.", sizes: '6.1"', colors: [{ name: "Ultramarine", hex: "#3f51b5" }, { name: "Teal", hex: "#2ca5a5" }, { name: "Pink", hex: "#e8a0b5" }, { name: "White", hex: "#f0efe6" }, { name: "Black", hex: "#2c2c2e" }] },
-  { name: "iPhone 16 Plus", price: "From $899", desc: "More screen. More battery. More wow.", sizes: '6.7"', colors: [{ name: "Ultramarine", hex: "#3f51b5" }, { name: "Teal", hex: "#2ca5a5" }, { name: "Pink", hex: "#e8a0b5" }, { name: "White", hex: "#f0efe6" }, { name: "Black", hex: "#2c2c2e" }] },
-  { name: "iPhone SE", price: "From $429", desc: "All the essentials at an incredible price.", sizes: '4.7"', colors: [{ name: "Midnight", hex: "#1d1d3b" }, { name: "Starlight", hex: "#f0e6d3" }, { name: "Red", hex: "#c5322a" }] },
+  { name: "iPhone 17 Pro", price: "From $1,099", desc: "Innovative design for ultimate performance and battery life.", sizes: '6.9" or 6.3"', colors: [{ name: "Natural Titanium", hex: "#a8a5a0" }, { name: "Desert Titanium", hex: "#c4a77d" }, { name: "White Titanium", hex: "#e8e6e1" }, { name: "Black Titanium", hex: "#3b3b3d" }] },
+  { name: "iPhone Air", price: "From $999", desc: "The thinnest iPhone ever. With the power of pro inside.", sizes: '6.5"', colors: [{ name: "Midnight", hex: "#1d1d3b" }, { name: "Starlight", hex: "#f0e6d3" }, { name: "Green", hex: "#a8c9a5" }, { name: "Blue", hex: "#7ba4c9" }] },
+  { name: "iPhone 17", price: "From $799", desc: "Even more delightful. Even more durable.", sizes: '6.3"', colors: [{ name: "Ultramarine", hex: "#3f51b5" }, { name: "Teal", hex: "#2ca5a5" }, { name: "Pink", hex: "#e8a0b5" }, { name: "White", hex: "#f0efe6" }, { name: "Black", hex: "#2c2c2e" }] },
+  { name: "iPhone 17e", price: "From $599", desc: "Feature stacked. Value packed.", sizes: '6.1"', colors: [{ name: "Black", hex: "#2c2c2e" }, { name: "White", hex: "#f0efe6" }, { name: "Pink", hex: "#f4c2c2" }] },
 ];
 
 function IPhoneCard({ phone, index }: { phone: typeof iphones[0]; index: number }) {
   const [ci, setCi] = useState(0);
   const { ref, style: tiltStyle, onMove, onLeave } = useTilt(6);
+  const isNew = phone.name === "iPhone 17 Pro" || phone.name === "iPhone 17";
   return (
     <FadeIn delay={index * 0.06}>
       <div ref={ref} onMouseMove={onMove} onMouseLeave={onLeave}
@@ -27,13 +27,19 @@ function IPhoneCard({ phone, index }: { phone: typeof iphones[0]; index: number 
           <IPhoneSVG width={100} color={phone.colors[ci].hex} />
         </div>
         <ColorPicker colors={phone.colors} selected={ci} onSelect={setCi} />
+        {isNew && (
+          <span style={{
+            display: "inline-block", fontSize: 12, fontWeight: 600, color: "#bf4800",
+            width: "fit-content",
+          }}>New</span>
+        )}
         <h3 style={{ fontFamily: FONT, fontSize: 20, fontWeight: 600, color: DARK, margin: 0 }}>{phone.name}</h3>
         <p style={{ fontSize: 13, color: "#6e6e73", margin: 0, lineHeight: 1.4 }}>{phone.desc}</p>
         <p style={{ fontSize: 12, color: "#86868b", margin: 0 }}>{phone.sizes}</p>
         <p style={{ fontSize: 13, color: DARK, fontWeight: 500, margin: 0 }}>{phone.price}</p>
         <div style={{ display: "flex", gap: 14, marginTop: 2 }}>
           <a href="#/iphone" style={{ color: BLUE, fontSize: 14, textDecoration: "none" }}>Learn more &gt;</a>
-          <a href="#/store" style={{ display: "inline-flex", alignItems: "center", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
+          <a href="#/buy-iphone" style={{ display: "inline-flex", alignItems: "center", backgroundColor: BLUE, color: "#fff", padding: "7px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, textDecoration: "none" }}>Buy</a>
         </div>
       </div>
     </FadeIn>
@@ -43,14 +49,14 @@ function IPhoneCard({ phone, index }: { phone: typeof iphones[0]; index: number 
 export default function IPhone() {
   return (
     <div style={{ backgroundColor: LIGHT_BG }}>
-      <PageHero title="iPhone 16 Pro" subtitle="Oh. So. Pro." cta={<CTALinks learnMore="/iphone" buy="/store" />}
+      <PageHero title="iPhone 17 Pro" subtitle="The ultimate iPhone." cta={<CTALinks learnMore="/iphone" buy="/buy-iphone" />}
         gradient="linear-gradient(180deg, #0a0a18 0%, #0f3460 30%, #533483 60%, #1a1a3e 85%, #0a0a18 100%)" height="clamp(380px,55vw,620px)"
       >
         <div style={{ position: "relative" }}>
           <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 350, height: 350, borderRadius: "50%", background: "radial-gradient(circle, rgba(83,52,131,0.2), transparent 70%)", animation: "pulse-glow 4s ease-in-out infinite" }} />
           <Parallax speed={0.1}>
             <div className="phone-float">
-              <IPhoneSVG width={Math.min(220, window.innerWidth * 0.25)} color="#b5a48c" />
+              <IPhoneSVG width={Math.min(220, window.innerWidth * 0.25)} color="#a8a5a0" />
             </div>
           </Parallax>
         </div>
@@ -67,17 +73,14 @@ export default function IPhone() {
         <ScaleIn delay={0.2}>
           <div style={{ marginTop: 56, display: "flex", justifyContent: "center" }}>
             <div style={{ width: "clamp(300px,50vw,600px)", height: "clamp(180px,28vw,340px)", borderRadius: 24, background: "linear-gradient(135deg, #0f3460, #533483 50%, #1a1a3e)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
-              {/* Viewfinder grid */}
               <div style={{ position: "absolute", inset: 20, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridTemplateRows: "1fr 1fr 1fr" }}>
                 {Array.from({ length: 9 }).map((_, i) => (
                   <div key={i} style={{ border: "0.5px solid rgba(255,255,255,0.08)" }} />
                 ))}
               </div>
-              {/* Focus ring */}
               <div style={{ width: 90, height: 90, borderRadius: 4, border: "2px solid rgba(255,204,0,0.7)", position: "relative", animation: "focus-pulse 2s ease-in-out infinite" }}>
                 <div style={{ position: "absolute", bottom: -24, left: "50%", transform: "translateX(-50%)", fontSize: 11, color: "rgba(255,204,0,0.8)", whiteSpace: "nowrap" }}>AE/AF LOCK</div>
               </div>
-              {/* Controls bar */}
               <div style={{ position: "absolute", bottom: 16, left: 20, right: 20, height: 36, borderRadius: 18, backgroundColor: "rgba(0,0,0,0.4)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "space-around", padding: "0 20px" }}>
                 {["0.5x", "1x", "2x", "5x"].map((z, i) => (
                   <span key={z} style={{ fontSize: 12, color: i === 1 ? "#ffcc00" : "rgba(255,255,255,0.5)", fontWeight: i === 1 ? 700 : 400 }}>{z}</span>
@@ -103,13 +106,12 @@ export default function IPhone() {
       </section>
 
       <section style={{ display: "flex", flexWrap: "wrap", gap: 12, padding: "12px 12px 0" }}>
-        <FeatureTile dark large title="A18 Pro chip" description="The fastest chip ever in a smartphone. Up to 2x faster GPU performance for console-quality gaming." />
+        <FeatureTile dark large title="A19 Pro chip" description="The fastest chip ever in a smartphone. Up to 2x faster GPU performance for console-quality gaming." />
         <FeatureTile title="48MP Camera" description="Shoot incredibly detailed photos with the most advanced camera system on iPhone." />
         <FeatureTile dark title="Titanium Design" description="Lightweight and durable, with a surgical-grade titanium band and the thinnest borders ever." />
       </section>
 
-      {/* Marquee */}
-      <Marquee dark items={["Camera Control", "A18 Pro", "48MP Fusion Camera", "5x Telephoto", "Titanium", "Action Button", "USB-C", "Spatial Video", "Ceramic Shield", "Always-On Display", "ProRes", "ProRAW"]} speed={32} />
+      <Marquee dark items={["Camera Control", "A19 Pro", "48MP Fusion Camera", "5x Telephoto", "Titanium", "Action Button", "USB-C", "Spatial Video", "Ceramic Shield", "Always-On Display", "ProRes", "Apple Intelligence"]} speed={32} />
 
       <SpecRow dark items={[
         { label: "Main camera", value: "48MP", numericValue: 48, suffix: "MP" },
@@ -118,17 +120,17 @@ export default function IPhone() {
         { label: "Max storage", value: "1TB", numericValue: 1, suffix: "TB" },
       ]} />
 
-      {/* A18 Pro vs A17 Pro comparison */}
+      {/* A19 Pro vs A18 Pro comparison */}
       <section style={{ backgroundColor: "#000", padding: "70px 22px 80px" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <FadeIn>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,4.5vw,48px)", fontWeight: 700, color: WHITE_TEXT, letterSpacing: "-0.02em", textAlign: "center", margin: "0 0 8px" }}>
-              <CinematicText text="A18 Pro vs. A17 Pro" />
+              <CinematicText text="A19 Pro vs. A18 Pro" />
             </h2>
             <p style={{ fontSize: "clamp(14px,2vw,19px)", color: "#a1a1a6", textAlign: "center", margin: "0 0 36px" }}>Drag to see the generational leap in performance.</p>
           </FadeIn>
           <ScaleIn>
-            <ComparisonSlider leftLabel="A17 Pro — Powerful" rightLabel="A18 Pro — Extraordinary" leftColor="#1a1a2e" rightColor="#533483" height={240} />
+            <ComparisonSlider leftLabel="A18 Pro — Powerful" rightLabel="A19 Pro — Extraordinary" leftColor="#1a1a2e" rightColor="#533483" height={240} />
           </ScaleIn>
         </div>
       </section>
@@ -142,19 +144,18 @@ export default function IPhone() {
           <p style={{ fontSize: "clamp(14px,2vw,19px)", color: "#6e6e73", textAlign: "center", margin: "6px 0 0" }}>Pick the model and options that are right for you.</p>
         </FadeIn>
         <ProductConfigurator
-          name="iPhone 16 Pro"
-          basePrice={999}
-          DeviceComponent={() => <IPhoneSVG width={180} color="#b5a48c" />}
+          name="iPhone 17 Pro"
+          basePrice={1099}
+          DeviceComponent={() => <IPhoneSVG width={180} color="#a8a5a0" />}
           options={[
             { category: "Display Size", choices: [
-              { label: '6.3-inch — iPhone 16 Pro', price: 0, default: true },
-              { label: '6.9-inch — iPhone 16 Pro Max', price: 200 },
+              { label: '6.3-inch — iPhone 17 Pro', price: 0, default: true },
+              { label: '6.9-inch — iPhone 17 Pro Max', price: 100 },
             ]},
             { category: "Storage", choices: [
-              { label: "128GB", price: 0, default: true },
-              { label: "256GB", price: 100 },
-              { label: "512GB", price: 300 },
-              { label: "1TB", price: 500 },
+              { label: "256GB", price: 0, default: true },
+              { label: "512GB", price: 200 },
+              { label: "1TB", price: 400 },
             ]},
             { category: "AppleCare+", choices: [
               { label: "None", price: 0, default: true },
@@ -165,33 +166,33 @@ export default function IPhone() {
         />
       </section>
 
-      {/* ── Comparison Table ──────────────────── */}
+      {/* Comparison Table */}
       <ComparisonTable
         title="Which iPhone is right for you?"
         models={[
           {
-            name: "iPhone 16 Pro Max", price: "From $1,199", isNew: true,
-            image: <IPhoneSVG width={70} color="#b5a48c" />,
-            colors: [{ name: "Desert Titanium", hex: "#b5a48c" }, { name: "Natural Titanium", hex: "#a8a5a0" }, { name: "White Titanium", hex: "#e8e6e1" }, { name: "Black Titanium", hex: "#3b3b3d" }],
-            specs: { display: '6.9" Super Retina XDR', chip: "A18 Pro", camera: "48MP Main | 12MP Ultra Wide | 12MP 5x Telephoto", battery: "Up to 33 hours", storage: "256GB – 1TB", faceId: true, actionButton: true, cameraControl: true, usbc: true, dynamicIsland: true, aod: true, proMotion: true, emergencySos: true },
+            name: "iPhone 17 Pro", price: "From $1,099", isNew: true,
+            image: <IPhoneSVG width={70} color="#a8a5a0" />,
+            colors: [{ name: "Natural Titanium", hex: "#a8a5a0" }, { name: "Desert Titanium", hex: "#c4a77d" }, { name: "White Titanium", hex: "#e8e6e1" }, { name: "Black Titanium", hex: "#3b3b3d" }],
+            specs: { display: '6.9" or 6.3" Super Retina XDR', chip: "A19 Pro", camera: "48MP Main | 48MP Ultra Wide | 12MP 5x Telephoto", battery: "Up to 33 hours", storage: "256GB – 1TB", faceId: true, actionButton: true, cameraControl: true, usbc: true, dynamicIsland: true, aod: true, proMotion: true, emergencySos: true },
           },
           {
-            name: "iPhone 16 Pro", price: "From $999", isNew: true,
-            image: <IPhoneSVG width={62} color="#a8a5a0" />,
-            colors: [{ name: "Desert Titanium", hex: "#b5a48c" }, { name: "Natural Titanium", hex: "#a8a5a0" }, { name: "White Titanium", hex: "#e8e6e1" }, { name: "Black Titanium", hex: "#3b3b3d" }],
-            specs: { display: '6.3" Super Retina XDR', chip: "A18 Pro", camera: "48MP Main | 12MP Ultra Wide | 12MP 5x Telephoto", battery: "Up to 27 hours", storage: "128GB – 1TB", faceId: true, actionButton: true, cameraControl: true, usbc: true, dynamicIsland: true, aod: true, proMotion: true, emergencySos: true },
+            name: "iPhone Air", price: "From $999",
+            image: <IPhoneSVG width={62} color="#1d1d3b" />,
+            colors: [{ name: "Midnight", hex: "#1d1d3b" }, { name: "Starlight", hex: "#f0e6d3" }, { name: "Green", hex: "#a8c9a5" }, { name: "Blue", hex: "#7ba4c9" }],
+            specs: { display: '6.5" Super Retina XDR', chip: "A19", camera: "48MP Main | 12MP Ultra Wide", battery: "Up to 26 hours", storage: "128GB – 512GB", faceId: true, actionButton: true, cameraControl: true, usbc: true, dynamicIsland: true, aod: true, proMotion: true, emergencySos: true },
           },
           {
-            name: "iPhone 16", price: "From $799",
+            name: "iPhone 17", price: "From $799", isNew: true,
             image: <IPhoneSVG width={58} color="#3f51b5" />,
             colors: [{ name: "Ultramarine", hex: "#3f51b5" }, { name: "Teal", hex: "#2ca5a5" }, { name: "Pink", hex: "#e8a0b5" }, { name: "White", hex: "#f0efe6" }, { name: "Black", hex: "#2c2c2e" }],
-            specs: { display: '6.1" Super Retina XDR', chip: "A18", camera: "48MP Main | 12MP Ultra Wide", battery: "Up to 22 hours", storage: "128GB – 512GB", faceId: true, actionButton: true, cameraControl: true, usbc: true, dynamicIsland: true, aod: false, proMotion: false, emergencySos: true },
+            specs: { display: '6.3" Super Retina XDR', chip: "A19", camera: "48MP Main | 12MP Ultra Wide", battery: "Up to 26 hours", storage: "128GB – 512GB", faceId: true, actionButton: true, cameraControl: true, usbc: true, dynamicIsland: true, aod: true, proMotion: true, emergencySos: true },
           },
           {
-            name: "iPhone SE", price: "From $429",
-            image: <IPhoneSVG width={54} color="#1d1d3b" />,
-            colors: [{ name: "Midnight", hex: "#1d1d3b" }, { name: "Starlight", hex: "#f0e6d3" }, { name: "Red", hex: "#c5322a" }],
-            specs: { display: '4.7" Retina HD', chip: "A15 Bionic", camera: "12MP Main", battery: "Up to 15 hours", storage: "64GB – 256GB", faceId: false, actionButton: false, cameraControl: false, usbc: false, dynamicIsland: false, aod: false, proMotion: false, emergencySos: true },
+            name: "iPhone 17e", price: "From $599",
+            image: <IPhoneSVG width={54} color="#f4c2c2" />,
+            colors: [{ name: "Black", hex: "#2c2c2e" }, { name: "White", hex: "#f0efe6" }, { name: "Pink", hex: "#f4c2c2" }],
+            specs: { display: '6.1" Super Retina XDR', chip: "A18", camera: "48MP Main", battery: "Up to 22 hours", storage: "128GB – 256GB", faceId: true, actionButton: false, cameraControl: false, usbc: true, dynamicIsland: false, aod: false, proMotion: false, emergencySos: true },
           },
         ]}
         specLabels={[
@@ -211,26 +212,26 @@ export default function IPhone() {
         ]}
       />
 
-      {/* ── Buy Form ─────────────────────────── */}
+      {/* Buy Form */}
       <BuyForm
-        productName="iPhone 16 Pro"
-        basePrice={999}
-        DeviceImage={<IPhoneSVG width={160} color="#b5a48c" />}
+        productName="iPhone 17 Pro"
+        basePrice={1099}
+        DeviceImage={<IPhoneSVG width={160} color="#a8a5a0" />}
         steps={[
           {
             title: "Choose your model.",
             subtitle: "Which size is right for you?",
             options: [
-              { label: 'iPhone 16 Pro', sublabel: '6.3-inch display', price: "From $999", priceNum: 0 },
-              { label: 'iPhone 16 Pro Max', sublabel: '6.9-inch display', price: "From $1,199", priceNum: 200 },
+              { label: 'iPhone 17 Pro', sublabel: '6.3-inch display', price: "From $1,099", priceNum: 0 },
+              { label: 'iPhone 17 Pro Max', sublabel: '6.9-inch display', price: "From $1,199", priceNum: 100 },
             ],
           },
           {
             title: "Pick your finish.",
             subtitle: "Choose a color you love.",
             options: [
-              { label: "Desert Titanium", color: "#b5a48c", price: "Included", priceNum: 0 },
               { label: "Natural Titanium", color: "#a8a5a0", price: "Included", priceNum: 0 },
+              { label: "Desert Titanium", color: "#c4a77d", price: "Included", priceNum: 0 },
               { label: "White Titanium", color: "#e8e6e1", price: "Included", priceNum: 0 },
               { label: "Black Titanium", color: "#3b3b3d", price: "Included", priceNum: 0 },
             ],
@@ -239,10 +240,9 @@ export default function IPhone() {
             title: "How much storage do you need?",
             subtitle: "Photos, apps, and more — choose the right amount.",
             options: [
-              { label: "128GB", sublabel: "Great for essentials", price: "Included", priceNum: 0 },
-              { label: "256GB", sublabel: "Extra room to grow", price: "+$100", priceNum: 100 },
-              { label: "512GB", sublabel: "Plenty of space", price: "+$300", priceNum: 300 },
-              { label: "1TB", sublabel: "For power users", price: "+$500", priceNum: 500 },
+              { label: "256GB", sublabel: "Great for most people", price: "Included", priceNum: 0 },
+              { label: "512GB", sublabel: "Plenty of space", price: "+$200", priceNum: 200 },
+              { label: "1TB", sublabel: "For power users", price: "+$400", priceNum: 400 },
             ],
           },
           {
