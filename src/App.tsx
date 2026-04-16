@@ -1,6 +1,7 @@
 import { useRouter } from "./hooks";
 import { Nav, Footer } from "./shared";
 import { ScrollProgressRing } from "./advanced";
+import { BagProvider } from "./BagContext";
 import Home from "./pages/Home";
 import Store from "./pages/Store";
 import Mac from "./pages/Mac";
@@ -47,6 +48,7 @@ function Router() {
 
 export default function App() {
   return (
+    <BagProvider>
     <div style={{
       fontFamily: "SF Pro Text, -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif",
       WebkitFontSmoothing: "antialiased",
@@ -206,5 +208,6 @@ export default function App() {
       <Footer />
       <ScrollProgressRing />
     </div>
+    </BagProvider>
   );
 }

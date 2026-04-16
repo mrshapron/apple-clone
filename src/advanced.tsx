@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useInView } from "./hooks";
 import { FONT, BLUE, DARK, WHITE_TEXT } from "./shared";
+import { useBag } from "./BagContext";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // STARFIELD / PARTICLE CANVAS
@@ -632,7 +633,7 @@ export function BuyForm({ productName, steps, basePrice, DeviceImage, onColorCha
   const [currentStep, setCurrentStep] = useState(0);
   const [selections, setSelections] = useState<number[]>(steps.map(() => 0));
   const [showSummary, setShowSummary] = useState(false);
-  const { show, Toast } = useToast();
+  const { addItem } = useBag();
 
   const totalPrice = basePrice + steps.reduce((sum, step, i) => sum + (step.options[selections[i]]?.priceNum || 0), 0);
 
@@ -656,7 +657,6 @@ export function BuyForm({ productName, steps, basePrice, DeviceImage, onColorCha
 
   return (
     <section id="buy-form" style={{ backgroundColor: "#f5f5f7", padding: "80px 22px 90px" }}>
-      <Toast />
       <div style={{ maxWidth: 1000, margin: "0 auto" }}>
         <h2 style={{
           fontFamily: FONT, fontSize: "clamp(32px,5vw,52px)", fontWeight: 700,
@@ -838,7 +838,19 @@ export function BuyForm({ productName, steps, basePrice, DeviceImage, onColorCha
                       cursor: "pointer", fontFamily: FONT,
                     }}
                   >Back</button>
-                  <button onClick={() => show(`${productName} added to bag!`)}
+                  <button onClick={() => {
+                    addItem({
+                      id: `${productName}-${Date.now()}`,
+                      name: productName,
+                      variant: steps.map((step, i) => step.options[selections[i]].label).join(" · "),
+                      price: totalPrice,
+                      image: DeviceImage,
+                      selections: steps.map((step, i) => ({
+                        label: step.title,
+                        value: step.options[selections[i]].label,
+                      })),
+                    });
+                  }}
                     style={{
                       flex: 2, padding: "14px 32px", borderRadius: 22, fontSize: 16, fontWeight: 600,
                       border: "none", backgroundColor: BLUE, color: "#fff",

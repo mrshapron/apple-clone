@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useInView, useCounter, useParallax, useGlow } from "./hooks";
+import { useBag } from "./BagContext";
 
 // ─── Constants ───────────────────────────────────────────────────────────
 export const FONT = "SF Pro Display, -apple-system, BlinkMacSystemFont, Helvetica Neue, sans-serif";
@@ -104,7 +105,7 @@ export function CTALinks({ learnMore, buy, dark = true, buyScrollsToForm = false
       {buy && <a href={`#${buy}`} onClick={buyScrollsToForm ? (e) => {
         e.preventDefault();
         document.getElementById("buy-form")?.scrollIntoView({ behavior: "smooth" });
-      } : undefined} style={{ display: "inline-flex", alignItems: "center", gap: 4, color: BLUE, backgroundColor: BLUE, color: "#fff", padding: "10px 22px", borderRadius: 40, fontSize: 15, fontWeight: 500, transition: "background-color 0.3s", textDecoration: "none", cursor: "pointer" } as any}>Buy</a>}
+      } : undefined} style={{ display: "inline-flex", alignItems: "center", gap: 4, backgroundColor: BLUE, color: "#fff", padding: "10px 22px", borderRadius: 40, fontSize: 15, fontWeight: 500, transition: "background-color 0.3s", textDecoration: "none", cursor: "pointer" } as any}>Buy</a>}
     </div>
   );
 }
@@ -396,6 +397,7 @@ export function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { count: bagCount, setBagOpen } = useBag();
 
   const openMenu = (label: string) => {
     if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; }
@@ -468,10 +470,21 @@ export function Nav() {
               onMouseOver={e => e.currentTarget.style.opacity = "1"} onMouseOut={e => e.currentTarget.style.opacity = "0.8"}>
               <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="6" cy="6" r="5.2"/><line x1="10" y1="10" x2="14" y2="14"/></svg>
             </a>
-            <a href="#/store" onMouseEnter={scheduleClose} style={{ color: WHITE_TEXT, opacity: 0.8, transition: "opacity 0.3s" }}
+            <button onClick={() => setBagOpen(true)} onMouseEnter={scheduleClose}
+              style={{ position: "relative", background: "none", border: "none", color: WHITE_TEXT, opacity: 0.8, transition: "opacity 0.3s", cursor: "pointer", padding: 0, lineHeight: 0 }}
               onMouseOver={e => e.currentTarget.style.opacity = "1"} onMouseOut={e => e.currentTarget.style.opacity = "0.8"}>
               <svg width="14" height="17" viewBox="0 0 14 17" fill="none" stroke="currentColor" strokeWidth="1.3"><path d="M1 4.5h12v11H1z"/><path d="M4.5 4.5V3a2.5 2.5 0 015 0v1.5"/></svg>
-            </a>
+              {bagCount > 0 && (
+                <span style={{
+                  position: "absolute", top: -6, right: -8,
+                  backgroundColor: BLUE, color: "#fff",
+                  fontSize: 10, fontWeight: 700, fontFamily: FONT,
+                  minWidth: 16, height: 16, borderRadius: 8,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  padding: "0 4px", lineHeight: 1,
+                }}>{bagCount}</span>
+              )}
+            </button>
             <button onClick={() => setMenuOpen(!menuOpen)} className="nav-hamburger" style={{ background: "none", border: "none", color: WHITE_TEXT, cursor: "pointer", display: "none", padding: 0 }}>
               <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
                 {menuOpen ? <path d="M3.5 3.5l11 11M14.5 3.5l-11 11" stroke="currentColor" strokeWidth="1.5" fill="none"/> : <><rect y="3" width="18" height="1.2" rx="0.6"/><rect y="8.5" width="18" height="1.2" rx="0.6"/><rect y="14" width="18" height="1.2" rx="0.6"/></>}
